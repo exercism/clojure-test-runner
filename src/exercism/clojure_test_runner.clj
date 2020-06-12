@@ -9,9 +9,10 @@
     (is (= 0 1))))
 
 (defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
+  "Tests a solution file and writes `results.json` to output directory"
+  [slug input output]
+  (spit (str output "results.json")
+        (json/generate-string {:slug slug :input input :output output})))
 
 (comment
-  (json/generate-string {:foo "bar" :baz 5}))
+  (-main "two-fer" "in-dir/" "out-dir/"))
