@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [exercism.clojure-test-runner :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(load-file "test/exercism/two-fer/src/example.clj")
+(load-file "test/exercism/two-fer/test/two_fer_test.clj")
+
+(run-tests 'two-fer-test)
