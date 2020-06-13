@@ -4,10 +4,6 @@
    [cheshire.core :as json])
   (:gen-class))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
-
 (defn -main
   "Tests a solution file and writes `results.json` to output directory"
   [slug input output]
