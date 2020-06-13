@@ -12,7 +12,7 @@
 $ ./bin/run.sh <SLUG> <INPUT> <OUTPUT>
 ```
 
-Run the project's tests (they'll fail until you edit them):
+To run this project's tests (i.e. test the test runner):
 
     $ clojure -A:test:runner
 

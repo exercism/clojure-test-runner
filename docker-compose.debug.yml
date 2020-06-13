@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  clojure-test-runner:
+    image: clojure-test-runner
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000
