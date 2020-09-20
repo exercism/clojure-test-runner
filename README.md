@@ -30,4 +30,4 @@ The interface that test runners must conform to is defined in [docs/interface.md
 
 ## Copyright
 
-All content in this repository is copyright to Exercism and licenced under MIT.
+All content in this repository is copyright to Exercism and licenced under AGPL
