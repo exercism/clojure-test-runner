@@ -24,9 +24,9 @@ Run that uberjar:
 
     $ java -jar clojure-test-runner.jar
 
-## The Interface
+## Documentation
 
-The interface that test runners must conform to is defined in [docs/interface.md](docs/interface.md).
+The specification of the interface that the test runners must conform to is found in the [track-tooling](https://github.com/exercism/v3-docs/tree/master/anatomy/track-tooling) section of the v3-docs repo.
 
 ## Copyright
 
