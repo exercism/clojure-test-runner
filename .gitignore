@@ -9,3 +9,7 @@
 /.nrepl-port
 .hgignore
 .hg/
+out-dir/
+tests/*/target/
+tests/*/results.json
+tests/*/.lein-failures
