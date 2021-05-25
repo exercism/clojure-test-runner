@@ -48,7 +48,7 @@ else
     # Sanitize the test output
     sanitized_test_output=$(echo "${test_output}" | sed -E -e '/\tat/d' -e '/^OpenJDK 64-Bit Server VM warning/d')
 
-    jq -n --arg output "${sanitized_test_output}" '{version: 1, status: "fail", output: $output}' > ${results_file}
+    jq -n --arg output "${sanitized_test_output}" '{version: 1, status: "fail", message: $output}' > ${results_file}
 fi
 
 echo "${slug}: done"

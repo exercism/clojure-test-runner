@@ -1,5 +1,5 @@
 {
   "version": 1,
   "status": "fail",
-  "output": "Exception in thread \"main\" Syntax error compiling at (leap_test.clj:6:12).\nCaused by: java.lang.RuntimeException: No such namespace: leap\n\t... 84 more\nTests failed."
+  "message": "Exception in thread \"main\" Syntax error compiling at (leap_test.clj:6:12).\nCaused by: java.lang.RuntimeException: No such namespace: leap\n\t... 84 more\nTests failed."
 }
