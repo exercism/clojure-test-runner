@@ -10,4 +10,3 @@
 
 (deftest name-bob-test
   (is (= "One for Bob, one for me." (two-fer/two-fer "Bob"))))
-

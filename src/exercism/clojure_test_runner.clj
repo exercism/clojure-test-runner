@@ -1,24 +1,24 @@
 (ns exercism.clojure-test-runner
   (:require
-   [clojure.test :refer [deftest testing is run-tests]]
+   [clojure.test :refer [deftest testing is run-tests test-all-vars test-ns test-var]]
    [cheshire.core :as json]
-   [kaocha.repl :as k])
+   [kaocha.repl :as k]
+   [clojure.java.shell :as shell]
+   [clojure.string :as str])
   (:gen-class))
 
-(defn test-slug [slug]
+(defn -main [slug in-dir out-dir]
   (let [ns (ns-publics (symbol (str slug "-test")))
         tests (keys ns)]
-    (reduce (fn [m k]
+    (shell/sh "cp" (str in-dir (str/replace slug "-" "_") ".clj") "src")
+    (shell/sh "cp" (str in-dir (str/replace slug "-" "_") "_test.clj") "test")
+    (spit (str out-dir "results.json")
+        (json/generate-string 
+         (reduce (fn [m k]
               (assoc m k (pos? (:kaocha.result/pass (k/run (get ns k))))))
-            {} tests)))
-
-(defn -main
-  "Tests a solution file and writes `results.json` to output directory"
-  [slug input output]
-  (spit (str output "results.json")
-        (json/generate-string {:slug slug :input input :output output})))
+            {} tests)))))
 
 (comment
   (json/generate-string
-   (test-slug "two-fer"))
-  (-main "two-fer" "in-dir/" "out-dir/"))
+   (test-slug "two-fer" "resources/" ""))
+  (-main "two-fer" "resources/" "out-dir/"))
