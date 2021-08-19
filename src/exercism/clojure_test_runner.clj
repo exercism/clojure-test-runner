@@ -19,6 +19,4 @@
             {} tests)))))
 
 (comment
-  (json/generate-string
-   (test-slug "two-fer" "resources/" ""))
   (-main "two-fer" "resources/" "out-dir/"))
