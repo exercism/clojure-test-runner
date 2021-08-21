@@ -27,3 +27,4 @@
                             {:pretty true}))
 
 (println (str "Results written to " (str (last *command-line-args*) "results.json")))
+(System/exit 0)
