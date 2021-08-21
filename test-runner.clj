@@ -19,7 +19,10 @@
 (t/run-tests (symbol (str (first *command-line-args*) "-test")))
 
 (spit (str (last *command-line-args*) "results.json")
-      (json/generate-string {:passes @passes
+      (json/generate-string {:version 2
+                             :status (if (empty? @fails)
+                                       "pass" "fail")
+                             :passes @passes
                                   :fails @fails}
                             {:pretty true}))
 
