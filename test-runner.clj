@@ -24,16 +24,22 @@
 (defmethod t/report :error [m]
   (swap! errors conj (:name (meta (first t/*testing-vars*)))))
 
+(defmethod t/report :summary [m])
+
 (t/run-tests test-ns)
 
 (spit (str (last *command-line-args*) "results.json")
-      (json/generate-string {:version 2
-                             :status (if (empty? @fails)
-                                       "pass" "fail")
-                             :passes @passes
-                             :fails @fails
-                             :errors @errors}
-                            {:pretty true}))
+      (json/generate-string
+       {:version 2
+        :status (if (and (empty? @fails)
+                         (empty? @errors))
+                  "pass" "fail")
+        :passes @passes
+        :fails @fails
+        :errors @errors
+        :message (when (seq @errors)
+                   @errors)}
+       {:pretty true}))
 
 (println (str "Results written to " (str (last *command-line-args*) "results.json")))
 (System/exit 0)
