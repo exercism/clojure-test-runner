@@ -2,10 +2,14 @@
 
 (require '[clojure.test :as t]
          '[babashka.classpath :as cp]
-         '[cheshire.core :as json])
+         '[cheshire.core :as json]
+         '[clojure.string :as str])
 
-(cp/add-classpath "src:test")                        
-(require (symbol (str (first *command-line-args*) "-test")))                  
+(def test-ns (symbol (str (first *command-line-args*) "-test")))
+(def in-dir (second *command-line-args*))
+
+(cp/add-classpath (str/replace in-dir "/" ""))                        
+(require test-ns)                  
 
 (def passes (atom []))
 (def fails (atom []))
@@ -16,7 +20,7 @@
 (defmethod t/report :fail [m]
   (swap! fails conj (:name (meta (first t/*testing-vars*)))))
 
-(t/run-tests (symbol (str (first *command-line-args*) "-test")))
+(t/run-tests test-ns)
 
 (spit (str (last *command-line-args*) "results.json")
       (json/generate-string {:version 2
