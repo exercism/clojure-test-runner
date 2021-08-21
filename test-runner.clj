@@ -20,6 +20,7 @@
 
 (spit (str (last *command-line-args*) "results.json")
       (json/generate-string {:passes (str @passes)
-                                  :fails (str @fails)}))
+                                  :fails (str @fails)}
+                            {:pretty true}))
 
 (println (str "Results written to " (str (last *command-line-args*) "results.json")))
