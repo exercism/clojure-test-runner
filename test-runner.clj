@@ -11,10 +11,10 @@
 (def fails (atom []))
 
 (defmethod t/report :pass [m]
-  (swap! passes conj (first t/*testing-vars*)))
+  (swap! passes conj (:name (meta (first t/*testing-vars*)))))
 
 (defmethod t/report :fail [m]
-  (swap! fails conj (first t/*testing-vars*)))
+  (swap! fails conj (:name (meta (first t/*testing-vars*)))))
 
 (t/run-tests (symbol (str (first *command-line-args*) "-test")))
 
