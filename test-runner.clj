@@ -19,8 +19,8 @@
 (t/run-tests (symbol (str (first *command-line-args*) "-test")))
 
 (spit (str (last *command-line-args*) "results.json")
-      (json/generate-string {:passes (str @passes)
-                                  :fails (str @fails)}
+      (json/generate-string {:passes @passes
+                                  :fails @fails}
                             {:pretty true}))
 
 (println (str "Results written to " (str (last *command-line-args*) "results.json")))
