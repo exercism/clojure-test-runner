@@ -38,8 +38,7 @@
        :status (if (and (empty? @fails)
                         (empty? @errors))
                  "pass" "fail")
-       :tests (if (seq @passes)
-                @passes @fails)
+       :tests (into @passes @fails)
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))
