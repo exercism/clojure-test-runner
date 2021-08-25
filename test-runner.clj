@@ -18,10 +18,13 @@
 (defmethod t/report :begin-test-ns [m])
 
 (defmethod t/report :pass [m]
-  (swap! passes conj (:name (meta (first t/*testing-vars*)))))
+  (swap! passes conj {:name (:name (meta (first t/*testing-vars*)))
+                      :status "pass"}))
 
 (defmethod t/report :fail [m]
-  (swap! fails conj (:name (meta (first t/*testing-vars*)))))
+  (swap! fails conj {:name (:name (meta (first t/*testing-vars*)))
+                     :status "fail"
+                     :message (str "Expected " (:expected m) " but got " (:actual m))}))
 
 (defmethod t/report :error [m]
   (swap! errors conj (:name (meta (first t/*testing-vars*)))))
@@ -35,9 +38,8 @@
        :status (if (and (empty? @fails)
                         (empty? @errors))
                  "pass" "fail")
-       :passes @passes
-       :fails @fails
-       :errors @errors
+       :tests (if (seq @passes)
+                @passes @fails)
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))
