@@ -8,12 +8,14 @@
 (def test-ns (symbol (str (first *command-line-args*) "-test")))
 (def in-dir (second *command-line-args*))
 
-(cp/add-classpath (str/replace in-dir "/" ""))                        
-(require test-ns)                  
+(cp/add-classpath "src:test")
+(require test-ns)
 
 (def passes (atom []))
 (def fails (atom []))
 (def errors (atom []))
+
+(defmethod t/report :begin-test-ns [m])
 
 (defmethod t/report :pass [m]
   (swap! passes conj (:name (meta (first t/*testing-vars*)))))
@@ -28,18 +30,16 @@
 
 (t/run-tests test-ns)
 
-(spit (str (last *command-line-args*) "results.json")
-      (json/generate-string
-       {:version 2
-        :status (if (and (empty? @fails)
-                         (empty? @errors))
-                  "pass" "fail")
-        :passes @passes
-        :fails @fails
-        :errors @errors
-        :message (when (seq @errors)
-                   @errors)}
-       {:pretty true}))
+(println (json/generate-string
+      {:version 2
+       :status (if (and (empty? @fails)
+                        (empty? @errors))
+                 "pass" "fail")
+       :passes @passes
+       :fails @fails
+       :errors @errors
+       :message (when (seq @errors)
+                  @errors)}
+      {:pretty true}))
 
-(println (str "Results written to " (str (last *command-line-args*) "results.json")))
 (System/exit 0)
