@@ -51,7 +51,7 @@ popd > /dev/null
 if [ $exit_code -eq 0 ]; then
     echo "${test_output}" > ${results_file}
 else
-    jq -n --arg output "${test_output}" '{"fails" : [ ], "errors" : [ ], "passes" : [ ], "status" : "error", "version" : 2, "message" : $output}' > ${results_file}
+    jq -n --arg output "${test_output}" '{"version" : 2, "status" : "error", "message" : $output}' > ${results_file}
 fi
 
 echo "${slug}: done"
