@@ -1,5 +1,5 @@
 {
-  "version": 1,
-  "status": "fail",
-  "message": "Exception in thread \"main\" Syntax error reading source at (leap.clj:1:14).\njava.lang.RuntimeException: Unmatched delimiter: )\nCaused by: clojure.lang.LispReader$ReaderException: java.lang.RuntimeException: Unmatched delimiter: )\n\t... 69 more\nCaused by: java.lang.RuntimeException: Unmatched delimiter: )\n\t... 83 more\nTests failed."
+  "version": 2,
+  "status": "error",
+  "message": "----- Error --------------------------------------------------------------------\nType:     clojure.lang.ExceptionInfo\nMessage:  [line 1, col 5] Invalid character: @ found while reading symbol.\nLocation: /home/porky/exercism/clojure-test-runner/tests/example-syntax-error/src/leap.clj:1:\nPhase:    parse\n\nException in thread \"main\" java.lang.NullPointerException\n\tat clojure.lang.Numbers.ops(Numbers.java:1068)\n\tat clojure.lang.Numbers.dec(Numbers.java:145)\n\tat babashka.impl.error_handler$error_context.invokeStatic(error_handler.clj:51)\n\tat babashka.impl.error_handler$error_handler.invokeStatic(error_handler.clj:106)\n\tat babashka.main$main$fn__22446.invoke(main.clj:648)\n\tat babashka.main$main.invokeStatic(main.clj:622)\n\tat babashka.main$main.doInvoke(main.clj:482)\n\tat clojure.lang.RestFn.applyTo(RestFn.java:137)\n\tat clojure.core$apply.invokeStatic(core.clj:665)\n\tat babashka.main$_main.invokeStatic(main.clj:674)\n\tat babashka.main$_main.doInvoke(main.clj:668)\n\tat clojure.lang.RestFn.applyTo(RestFn.java:137)\n\tat babashka.main.main(Unknown Source)"
 }

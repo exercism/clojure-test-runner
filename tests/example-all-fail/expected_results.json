@@ -1,5 +1,42 @@
 {
-  "version": 1,
-  "status": "fail",
-  "message": "\nlein test leap-test\n\nlein test :only leap-test/year-divisible-by-400\n\nFAIL in (year-divisible-by-400) (leap_test.clj:24)\nexpected: (leap/leap-year? 2000)\n  actual: (not (leap/leap-year? 2000))\n\nlein test :only leap-test/year-divisible-by-4-but-not-100\n\nFAIL in (year-divisible-by-4-but-not-100) (leap_test.clj:12)\nexpected: (leap/leap-year? 1996)\n  actual: (not (leap/leap-year? 1996))\n\nlein test :only leap-test/year-divisible-by-400-but-not-125\n\nFAIL in (year-divisible-by-400-but-not-125) (leap_test.clj:27)\nexpected: (leap/leap-year? 2400)\n  actual: (not (leap/leap-year? 2400))\n\nlein test :only leap-test/year-divisible-by-4-and-5\n\nFAIL in (year-divisible-by-4-and-5) (leap_test.clj:15)\nexpected: (leap/leap-year? 1960)\n  actual: (not (leap/leap-year? 1960))\n\nlein test :only leap-test/year-divisible-by-100-but-not-400\n\nFAIL in (year-divisible-by-100-but-not-400) (leap_test.clj:18)\nexpected: (not (leap/leap-year? 2100))\n  actual: (not (not true))\n\nlein test :only leap-test/year-divisible-by-200-but-not-by-400\n\nFAIL in (year-divisible-by-200-but-not-by-400) (leap_test.clj:30)\nexpected: (not (leap/leap-year? 1800))\n  actual: (not (not true))\n\nlein test :only leap-test/year-not-divisible-by-4\n\nFAIL in (year-not-divisible-by-4) (leap_test.clj:6)\nexpected: (not (leap/leap-year? 2015))\n  actual: (not (not true))\n\nlein test :only leap-test/year-divisible-by-100-but-not-by-3\n\nFAIL in (year-divisible-by-100-but-not-by-3) (leap_test.clj:21)\nexpected: (not (leap/leap-year? 1900))\n  actual: (not (not true))\n\nlein test :only leap-test/year-divisible-by-2-but-not-4\n\nFAIL in (year-divisible-by-2-but-not-4) (leap_test.clj:9)\nexpected: (not (leap/leap-year? 1970))\n  actual: (not (not true))\n\nRan 9 tests containing 9 assertions.\n9 failures, 0 errors.\nTests failed."
+  "tests" : [ {
+    "name" : "year-divisible-by-400",
+    "status" : "fail",
+    "message" : "Expected (leap/leap-year? 2000) but got (not (leap/leap-year? 2000))"
+  }, {
+    "name" : "year-divisible-by-4-but-not-100",
+    "status" : "fail",
+    "message" : "Expected (leap/leap-year? 1996) but got (not (leap/leap-year? 1996))"
+  }, {
+    "name" : "year-divisible-by-400-but-not-125",
+    "status" : "fail",
+    "message" : "Expected (leap/leap-year? 2400) but got (not (leap/leap-year? 2400))"
+  }, {
+    "name" : "year-divisible-by-4-and-5",
+    "status" : "fail",
+    "message" : "Expected (leap/leap-year? 1960) but got (not (leap/leap-year? 1960))"
+  }, {
+    "name" : "year-divisible-by-100-but-not-400",
+    "status" : "fail",
+    "message" : "Expected (not (leap/leap-year? 2100)) but got (not (not true))"
+  }, {
+    "name" : "year-divisible-by-200-but-not-by-400",
+    "status" : "fail",
+    "message" : "Expected (not (leap/leap-year? 1800)) but got (not (not true))"
+  }, {
+    "name" : "year-not-divisible-by-4",
+    "status" : "fail",
+    "message" : "Expected (not (leap/leap-year? 2015)) but got (not (not true))"
+  }, {
+    "name" : "year-divisible-by-100-but-not-by-3",
+    "status" : "fail",
+    "message" : "Expected (not (leap/leap-year? 1900)) but got (not (not true))"
+  }, {
+    "name" : "year-divisible-by-2-but-not-4",
+    "status" : "fail",
+    "message" : "Expected (not (leap/leap-year? 1970)) but got (not (not true))"
+  } ],
+  "status" : "fail",
+  "version" : 2,
+  "message" : null
 }

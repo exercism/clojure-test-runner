@@ -29,26 +29,29 @@ results_file="${output_dir}/results.json"
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
 
+# Copy babashka script to in-dir
+cp test-runner.clj "${input_dir}"
+
 echo "${slug}: testing..."
 
 pushd "${input_dir}" > /dev/null
 
 # Run the tests for the provided implementation file and redirect stdout and
 # stderr to capture it
-test_output=$(lein test 2>&1)
+test_output=$(./test-runner.clj "${slug}" "${input_dir}" "${output_dir}" 2>&1)
 exit_code=$?
+
+# clean up script
+rm test-runner.clj
 
 popd > /dev/null
 
 # Write the results.json file based on the exit code of the command that was 
 # just executed that tested the implementation file
 if [ $exit_code -eq 0 ]; then
-    jq -n '{version: 1, status: "pass"}' > ${results_file}
+    echo "${test_output}" > ${results_file}
 else
-    # Sanitize the test output
-    sanitized_test_output=$(echo "${test_output}" | sed -E -e '/\tat/d' -e '/^OpenJDK 64-Bit Server VM warning/d')
-
-    jq -n --arg output "${sanitized_test_output}" '{version: 1, status: "fail", message: $output}' > ${results_file}
+    jq -n --arg output "${test_output}" '{"version" : 2, "status" : "error", "message" : $output}' > ${results_file}
 fi
 
 echo "${slug}: done"

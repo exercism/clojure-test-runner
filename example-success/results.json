@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "status": "error",
+  "message": "----- Error --------------------------------------------------------------------\nType:     java.lang.Exception\nMessage:  Could not find namespace: example-success-test.\nLocation: /home/porky/exercism/clojure-test-runner/example-success/test-runner.clj:12:1\n\n----- Context ------------------------------------------------------------------\n 8: (def test-ns (symbol (str (first *command-line-args*) \"-test\")))\n 9: (def in-dir (second *command-line-args*))\n10: \n11: (cp/add-classpath \"src:test\")\n12: (require test-ns)\n    ^--- Could not find namespace: example-success-test.\n13: \n14: (def passes (atom []))\n15: (def fails (atom []))\n16: (def errors (atom []))\n17: \n\n----- Stack trace --------------------------------------------------------------\nuser - /home/porky/exercism/clojure-test-runner/example-success/test-runner.clj:12:1"
+}
