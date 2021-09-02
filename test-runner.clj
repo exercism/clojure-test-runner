@@ -12,17 +12,24 @@
 
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 
+;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
-(defn test? [loc]
+(defn test? 
+  "Returns true if the given node is a `deftest`."
+  [loc]
   (= (symbol 'deftest) (-> loc z/down z/sexpr)))
 
-(defn test-name [loc]
+(defn test-name 
+  "Returns the name of the test at a given node."
+  [loc]
   (-> loc z/down z/right z/sexpr))
 
-(defn tests [z]
-  (loop [loc z
-         tests []]
+(defn tests 
+  "Traverses a zipper representing a parsed test file.
+   Returns a vector of the test names in the order defined."
+  [z]
+  (loop [loc z tests []]
     (cond
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
@@ -30,9 +37,12 @@
 
 (require test-ns)
 
+;; State to hold test results
 (def passes (atom []))
 (def fails (atom []))
 (def errors (atom []))
+
+;; Override clojure.test reporting methods
 
 (defmethod t/report :begin-test-ns [m])
 
@@ -51,6 +61,8 @@
 (defmethod t/report :summary [m])
 
 (t/run-tests test-ns)
+
+;; JSON output
 
 (println (json/generate-string
       {:version 2
