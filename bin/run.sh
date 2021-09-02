@@ -31,14 +31,12 @@ mkdir -p "${output_dir}"
 
 echo "${slug}: testing..."
 
-# pushd "${input_dir}" > /dev/null
 
 # Run the tests for the provided implementation file and redirect stdout and
 # stderr to capture it
 test_output=$(./test-runner.clj "${slug}" "${input_dir}/" "${output_dir}" 2>&1)
 exit_code=$?
 
-# popd > /dev/null
 
 # Write the results.json file based on the exit code of the command that was 
 # just executed that tested the implementation file

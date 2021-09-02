@@ -27,9 +27,6 @@ for test_dir in tests/*; do
     bin/run.sh leap "${test_dir_path}" "${test_dir_path}"
 
     # Normalize the results file
-    #sed -i -E \
-    #  -e "s~${test_dir_path}~/solution~g" \
-    #  "${results_file_path}"
 
     echo "${test_dir_name}: comparing results.json to expected_results.json"
     diff "${results_file_path}" "${expected_results_file_path}"
