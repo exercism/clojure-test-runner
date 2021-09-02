@@ -1,12 +1,14 @@
 {
+  "version" : 2,
+  "status" : "pass",
   "tests" : [ {
-    "name" : "year-divisible-by-400",
+    "name" : "year-not-divisible-by-4",
+    "status" : "pass"
+  }, {
+    "name" : "year-divisible-by-2-but-not-4",
     "status" : "pass"
   }, {
     "name" : "year-divisible-by-4-but-not-100",
-    "status" : "pass"
-  }, {
-    "name" : "year-divisible-by-400-but-not-125",
     "status" : "pass"
   }, {
     "name" : "year-divisible-by-4-and-5",
@@ -15,19 +17,17 @@
     "name" : "year-divisible-by-100-but-not-400",
     "status" : "pass"
   }, {
-    "name" : "year-divisible-by-200-but-not-by-400",
-    "status" : "pass"
-  }, {
-    "name" : "year-not-divisible-by-4",
-    "status" : "pass"
-  }, {
     "name" : "year-divisible-by-100-but-not-by-3",
     "status" : "pass"
   }, {
-    "name" : "year-divisible-by-2-but-not-4",
+    "name" : "year-divisible-by-400",
+    "status" : "pass"
+  }, {
+    "name" : "year-divisible-by-400-but-not-125",
+    "status" : "pass"
+  }, {
+    "name" : "year-divisible-by-200-but-not-by-400",
     "status" : "pass"
   } ],
-  "status" : "pass",
-  "version" : 2,
   "message" : null
 }
