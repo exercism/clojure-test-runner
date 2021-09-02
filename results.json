@@ -1,8 +1,0 @@
-{
-  "fails" : [ ],
-  "errors" : [ ],
-  "passes" : [ "two-fer-test", "name-alice-test", "name-bob-test" ],
-  "status" : "pass",
-  "version" : 2,
-  "message" : null
-}
