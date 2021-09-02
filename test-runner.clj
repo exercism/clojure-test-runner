@@ -44,7 +44,7 @@
 (def fails (atom []))
 (def errors (atom []))
 
-;; Override clojure.test reporting methods
+;; Override clojure.test reporting methods to capture their results
 
 (defmethod t/report :begin-test-ns [m])
 
