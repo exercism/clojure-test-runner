@@ -13,6 +13,9 @@
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 (require test-ns)
 
+;; clojure.test runs the tests in random order,
+;; but the spec requires that we report them in order.
+
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
