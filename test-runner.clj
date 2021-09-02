@@ -6,6 +6,8 @@
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
+(def slug "leap")
+(def in-dir "/home/porky/exercism/clojure-test-runner/tests/example-success/")
 ;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
@@ -19,6 +21,14 @@
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
+(-> zloc z/right z/down z/right z/right z/down z/right z/right z/sexpr)
+
+(-> zloc z/right z/down z/right z/right z/sexpr)
+
+(-> zloc z/right z/down z/right z/sexpr)
+
+(z/find-value zloc (symbol 'test-single-bit-to-one-decimal))
+
 (defn test? 
   "Returns true if the given node is a `deftest`."
   [loc]
@@ -29,6 +39,11 @@
   [loc]
   (-> loc z/down z/right z/sexpr))
 
+(defn test-code
+  "Returns the code of the test at a given node."
+  [loc]
+  (-> loc z/down z/right z/right z/sexpr))
+
 (defn tests 
   "Traverses a zipper representing a parsed test file.
    Returns a vector of the test names in the order defined."
@@ -38,6 +53,29 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
       :else (recur (z/right loc) tests))))
+
+(defn test-codes
+  "Traverses a zipper representing a parsed test file.
+   Returns a vector of the test codes in the order defined."
+  [z]
+  (loop [loc z tests []]
+    (cond
+      (nil? loc) tests
+      (test? loc) (recur (z/right loc) (conj tests (test-code loc)))
+      :else (recur (z/right loc) tests))))
+
+(test-code
+ (-> zloc z/right))
+
+(test? zloc)
+
+(-> zloc z/right z/down z/right z/sexpr)
+
+(test-name
+ (-> zloc z/right))
+
+(defn test-code-map [loc]
+  (zipmap (tests loc) (test-codes loc)))
 
 ;; State to hold test results
 (def passes (atom []))
@@ -74,9 +112,9 @@
        :tests (vec (for [test (tests zloc)]
                      (cond
                        (contains? (set (map :name @passes)) test)
-                       {:name test :status "pass"}
+                       {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
                        (contains? (set (map :name @fails)) test)
-                       {:name test :status "fail"})))
+                       {:name test :status "fail" :test_code (str (test (test-code-map zloc)))})))
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))
