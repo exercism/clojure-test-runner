@@ -4,21 +4,15 @@
          '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
-         '[rewrite-clj.zip :as z]
-         )
+         '[rewrite-clj.zip :as z])
 
-(load-file "tests.clj")
-
-#_(def test-ns (symbol (str (first *command-line-args*) "-test")))
+(def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
+(def test-ns (symbol (str slug "-test")))
 
-(def test-ns 'accumulate-test)
+(cp/add-classpath (str in-dir "src:" in-dir "test"))
 
-(cp/add-classpath "src:test")
-
-(cp/add-classpath "exercises/practice/accumulate/src:exercises/practice/accumulate/test")
-
-(def zloc (z/of-file "exercises/practice/accumulate/test/accumulate_test.clj"))
+(def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
 (defn test? [loc]
   (= (symbol 'deftest) (-> loc z/down z/sexpr)))
@@ -30,22 +24,15 @@
   (loop [loc z
          tests []]
     (cond
-      (nil? (z/right loc)) tests
+      (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
       :else (recur (z/right loc) tests))))
-
-(tests zloc)
-
 
 (require test-ns)
 
 (def passes (atom []))
 (def fails (atom []))
 (def errors (atom []))
-
-@passes
-@fails
-@errors
 
 (defmethod t/report :begin-test-ns [m])
 
@@ -70,7 +57,12 @@
        :status (if (and (empty? @fails)
                         (empty? @errors))
                  "pass" "fail")
-       :tests (into @passes @fails)
+       :tests (vec (for [test (tests zloc)]
+                     (cond
+                       (contains? (set (map :name @passes)) test)
+                       {:name test :status "pass"}
+                       (contains? (set (map :name @fails)) test)
+                       {:name test :status "fail"})))
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))
