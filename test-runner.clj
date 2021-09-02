@@ -6,11 +6,12 @@
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
+;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
 (def test-ns (symbol (str slug "-test")))
-
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
+(require test-ns)
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
@@ -34,8 +35,6 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
       :else (recur (z/right loc) tests))))
-
-(require test-ns)
 
 ;; State to hold test results
 (def passes (atom []))
@@ -62,7 +61,7 @@
 
 (t/run-tests test-ns)
 
-;; JSON output
+;; Produce JSON output
 
 (println (json/generate-string
       {:version 2
