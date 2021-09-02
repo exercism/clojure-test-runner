@@ -3,17 +3,49 @@
 (require '[clojure.test :as t]
          '[babashka.classpath :as cp]
          '[cheshire.core :as json]
-         '[clojure.string :as str])
+         '[clojure.string :as str]
+         '[rewrite-clj.zip :as z]
+         )
 
-(def test-ns (symbol (str (first *command-line-args*) "-test")))
+(load-file "tests.clj")
+
+#_(def test-ns (symbol (str (first *command-line-args*) "-test")))
 (def in-dir (second *command-line-args*))
 
+(def test-ns 'accumulate-test)
+
 (cp/add-classpath "src:test")
+
+(cp/add-classpath "exercises/practice/accumulate/src:exercises/practice/accumulate/test")
+
+(def zloc (z/of-file "exercises/practice/accumulate/test/accumulate_test.clj"))
+
+(defn test? [loc]
+  (= (symbol 'deftest) (-> loc z/down z/sexpr)))
+
+(defn test-name [loc]
+  (-> loc z/down z/right z/sexpr))
+
+(defn tests [z]
+  (loop [loc z
+         tests []]
+    (cond
+      (nil? (z/right loc)) tests
+      (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
+      :else (recur (z/right loc) tests))))
+
+(tests zloc)
+
+
 (require test-ns)
 
 (def passes (atom []))
 (def fails (atom []))
 (def errors (atom []))
+
+@passes
+@fails
+@errors
 
 (defmethod t/report :begin-test-ns [m])
 
