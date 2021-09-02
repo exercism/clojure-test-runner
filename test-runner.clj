@@ -94,7 +94,8 @@
                        (contains? (set (map :name @passes)) test)
                        {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
                        (contains? (set (map :name @fails)) test)
-                       {:name test :status "fail" :test_code (str (test (test-code-map zloc)))})))
+                       {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
+                        :message (:message (first (filter #(= test (:name %)) @fails)))})))
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))

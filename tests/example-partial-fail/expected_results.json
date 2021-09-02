@@ -28,11 +28,13 @@
   }, {
     "name" : "year-divisible-by-400",
     "status" : "fail",
-    "test_code" : "(is (leap/leap-year? 2000))"
+    "test_code" : "(is (leap/leap-year? 2000))",
+    "message" : "Expected (leap/leap-year? 2000) but got (not (leap/leap-year? 2000))"
   }, {
     "name" : "year-divisible-by-400-but-not-125",
     "status" : "fail",
-    "test_code" : "(is (leap/leap-year? 2400))"
+    "test_code" : "(is (leap/leap-year? 2400))",
+    "message" : "Expected (leap/leap-year? 2400) but got (not (leap/leap-year? 2400))"
   }, {
     "name" : "year-divisible-by-200-but-not-by-400",
     "status" : "pass",
