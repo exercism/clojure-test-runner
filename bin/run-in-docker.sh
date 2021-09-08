@@ -31,7 +31,7 @@ output_dir="${3%/}"
 mkdir -p "${output_dir}"
 
 # Build the Docker image
-docker build --rm -t exercism/lua-test-runner .
+docker build --rm -t exercism/clojure-test-runner .
 
 # Run the Docker image using the settings mimicking the production environment
 # TODO: --read-only
@@ -41,4 +41,4 @@ docker run \
     --mount type=bind,src="${input_dir}",dst=/solution \
     --mount type=bind,src="${output_dir}",dst=/output \
     --mount type=tmpfs,dst=/tmp \
-    exercism/lua-test-runner "${slug}" /solution /output
+    exercism/clojure-test-runner "${slug}" /solution /output

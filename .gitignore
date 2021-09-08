@@ -13,3 +13,7 @@ out-dir/
 tests/*/target/
 tests/*/results.json
 tests/*/.lein-failures
+.calva/
+.lsp/
+exercises/
+run-length-encoding/
