@@ -98,9 +98,7 @@
                         :message (:message (first (filter #(= test (:name %)) @fails)))}
                        (contains? (set (set @errors)) test)
                        {:name test :status "error" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @errors)))})))
-       :message (when (seq @errors)
-                  @errors)}
+                        :message (:message (first (filter #(= test (:name %)) @errors)))})))}
       {:pretty true}))
 
 (System/exit 0)
