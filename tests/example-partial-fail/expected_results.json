@@ -39,6 +39,5 @@
     "name" : "year-divisible-by-200-but-not-by-400",
     "status" : "pass",
     "test_code" : "(is (not (leap/leap-year? 1800)))"
-  } ],
-  "message" : null
+  } ]
 }
