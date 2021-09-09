@@ -6,6 +6,11 @@
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
+(comment
+  (def slug "tracks-on-tracks-on-tracks")
+  (def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/tracks-on-tracks-on-tracks/")
+  )
+
 ;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
@@ -84,6 +89,8 @@
 
 ;; Produce JSON output
 
+@errors
+
 (println (json/generate-string
       {:version 2
        :status (if (and (empty? @fails)
@@ -95,7 +102,10 @@
                        {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
                        (contains? (set (map :name @fails)) test)
                        {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @fails)))})))
+                        :message (:message (first (filter #(= test (:name %)) @fails)))}
+                       (contains? (set (map :name @errors)) test)
+                       {:name test :status "error" :test_code (str (test (test-code-map zloc)))
+                        :message (:message (first (filter #(= test (:name %)) @errors)))})))
        :message (when (seq @errors)
                   @errors)}
       {:pretty true}))
