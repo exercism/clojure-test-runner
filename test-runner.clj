@@ -1,6 +1,7 @@
 #!/usr/bin/env bb
 
-(require '[babashka.classpath :as cp]
+(require '[clojure.test :refer [is]] 
+ '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
@@ -20,6 +21,11 @@
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
+
+(defn eval-is [assertion]
+  (try (eval assertion)
+       (catch Exception e
+         (str e))))
 
 (defn test-deftest 
   "Traverses a zipper from a 'deftest node. Recursively 
@@ -52,14 +58,14 @@
         (recur (-> loc z/right)
                prefix-string
                test-strings
-               (conj results [(eval (-> loc z/sexpr))])
+               (conj results [(eval-is (-> loc z/sexpr))])
                (conj assertions (z/sexpr loc)))
         (= (symbol 'is) (-> loc z/down z/sexpr))
         (recur (-> loc z/up z/right)
                prefix-string
                test-strings
                (conj (vec (butlast results))
-                     (conj (vec (last results)) (eval (-> loc z/sexpr))))
+                     (conj (vec (last results)) (eval-is (-> loc z/sexpr))))
                (conj assertions (z/sexpr loc)))
         :else
         {:test-name (-> test z/down z/right z/sexpr str)
@@ -103,7 +109,11 @@
 
 (comment
   (results zloc)
+  (eval-is '(is (= true (annalyns-infiltration/can-fast-attack? false))))
+  (eval-is '(is (= true (annas-infiltration/can-fast-attack? false))))
   )
+
+
 
 ;; Produce JSON output
 
