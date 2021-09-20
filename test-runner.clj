@@ -1,104 +1,134 @@
 #!/usr/bin/env bb
 
-(require '[clojure.test :as t]
-         '[babashka.classpath :as cp]
+(require '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
+(def slug "annalyns-infiltration")
+(def slug "lucians-luscious-lasagna")
+(def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/")
+(def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/lucians-luscious-lasagna/")
+(load-file "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/src/annalyns_infiltration.clj")
 ;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 (require test-ns)
-
-;; clojure.test runs the tests in random order,
-;; but the spec requires that we report them in order.
+(require (symbol slug))
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
-(defn test? 
+(defn deftest? 
   "Returns true if the given node is a `deftest`."
   [loc]
   (= (symbol 'deftest) (-> loc z/down z/sexpr)))
 
-(defn test-name 
-  "Returns the name of the test at a given node."
+(defn testing?
+  "Returns true if the given node is a `testing` form."
   [loc]
-  (-> loc z/down z/right z/sexpr))
+  (= (symbol 'testing) (-> loc z/down z/sexpr)))
 
-(defn test-code
-  "Returns the code of the test at a given node."
+(defn assertion?
+  "Returns true if the given node is an `is` form."
   [loc]
-  (-> loc z/down z/right z/right z/sexpr))
+  (= (symbol 'is) (-> loc z/down z/sexpr)))
 
-(defn tests 
-  "Traverses a zipper representing a parsed test file.
-   Returns a vector of the test names in the order defined."
-  [z]
-  (loop [loc z tests []]
+(defn assertion-next?
+  "Returns true if the node to the right is an `is` form."
+  [loc]
+  (= (symbol 'is) (-> loc z/right z/down z/sexpr)))
+
+(defn outer-testing?
+  "Returns true if the given node is an outer `testing` form."
+  [loc]
+  (and
+   (= (symbol 'testing) (-> loc z/down z/sexpr))
+   (= (symbol 'testing) (-> loc z/down z/right z/right z/down z/sexpr))))
+
+(defn assertion-true? 
+  "Returns true if the given assertion-loc is true."
+  [loc]
+  (eval (-> loc z/sexpr)))
+
+(defn test-deftest [loc]
+  (let [deftest loc]
+    (loop [loc deftest prefix-string ""
+           test-strings [] results [] assertions []]
+      (cond
+        (deftest? loc)
+        (recur (-> loc z/down z/right z/right)
+               prefix-string test-strings results assertions)
+        (outer-testing? loc)
+        (recur (-> loc z/down z/right z/right)
+               (-> loc z/down z/right z/sexpr)
+               test-strings results assertions)
+        (testing? loc)
+        (recur (-> loc z/down z/right z/right)
+               prefix-string
+               (conj test-strings
+                     (str/trim (str prefix-string " "
+                                    (-> loc z/down z/right z/sexpr))))
+               (conj results [])
+               assertions)
+        (and (assertion? loc) (assertion-next? loc))
+        (recur (-> loc z/right)
+               prefix-string
+               test-strings
+               (conj results [(assertion-true? loc)])
+               (conj assertions (z/sexpr loc)))
+        (assertion? loc)
+        (recur (-> loc z/up z/right)
+               prefix-string
+               test-strings
+               (conj (vec (butlast results))
+                     (conj (vec (last results)) (assertion-true? loc)))
+               (conj assertions (z/sexpr loc)))
+        :else
+        {:test-name (-> deftest z/down z/right z/sexpr str)
+         :results (vec (remove empty? results))
+         :test-strings test-strings
+         :assertions assertions}))))
+
+(defn test-file [loc]
+  (loop [loc loc
+         tests []]
     (cond
       (nil? loc) tests
-      (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
-      :else (recur (z/right loc) tests))))
+      (deftest? loc) (recur (-> loc z/right) (conj tests (test-deftest loc)))
+      :else (recur (-> loc z/right) tests))))
 
-(defn test-codes
-  "Traverses a zipper representing a parsed test file.
-   Returns a vector of the test codes in the order defined."
-  [z]
-  (loop [loc z tests []]
-    (cond
-      (nil? loc) tests
-      (test? loc) (recur (z/right loc) (conj tests (test-code loc)))
-      :else (recur (z/right loc) tests))))
+(comment
+  (test-file zloc)
+  )
 
-(defn test-code-map [loc]
-  (zipmap (tests loc) (test-codes loc)))
+(defn results [loc]
+  (flatten
+   (for [test (test-file zloc)]
+     (if (empty? (:test-strings test))
+       {:name (:test-name test)
+        :status (if (every? true? (:results test))
+                  "pass" "fail")}
+       (for [n (range (count (:test-strings test)))]
+         {:name (get (:test-strings test) n)
+          :status (if (every? true? (get (:results test) n))
+                    "pass" "fail")
+          :test_code (get (:assertions test) n)})))))
 
-;; State to hold test results
-(def passes (atom []))
-(def fails (atom []))
-(def errors (atom []))
-
-;; Override clojure.test reporting methods to capture their results
-
-(defmethod t/report :begin-test-ns [m])
-
-(defmethod t/report :pass [m]
-  (swap! passes conj {:name (:name (meta (first t/*testing-vars*)))
-                      :status "pass"}))
-
-(defmethod t/report :fail [m]
-  (swap! fails conj {:name (:name (meta (first t/*testing-vars*)))
-                     :status "fail"
-                     :message (str "Expected " (:expected m) " but got " (:actual m))}))
-
-(defmethod t/report :error [m]
-  (swap! errors conj (:name (meta (first t/*testing-vars*)))))
-
-(defmethod t/report :summary [m])
-
-(t/run-tests test-ns)
+(comment
+  (results zloc)
+  )
 
 ;; Produce JSON output
 
 (println (json/generate-string
       {:version 2
-       :status (if (and (empty? @fails)
-                        (empty? @errors))
+       :status (if (every? #(= "pass" (:status %)) (results zloc))
                  "pass" "fail")
-       :tests (vec (for [test (tests zloc)]
-                     (cond
-                       (contains? (set (map :name @passes)) test)
-                       {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
-                       (contains? (set (map :name @fails)) test)
-                       {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @fails)))}
-                       (contains? (set (set @errors)) test)
-                       {:name test :status "error" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @errors)))})))}
+       :tests
+       (vec (results zloc))}
       {:pretty true}))
 
 (System/exit 0)
