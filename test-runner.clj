@@ -21,51 +21,24 @@
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
-(defn deftest? 
-  "Returns true if the given node is a `deftest`."
+(defn test-deftest 
+  "Traverses a zipper from a 'deftest node. Recursively 
+   evaluates all assertions and outputs a map of the results."
   [loc]
-  (= (symbol 'deftest) (-> loc z/down z/sexpr)))
-
-(defn testing?
-  "Returns true if the given node is a `testing` form."
-  [loc]
-  (= (symbol 'testing) (-> loc z/down z/sexpr)))
-
-(defn assertion?
-  "Returns true if the given node is an `is` form."
-  [loc]
-  (= (symbol 'is) (-> loc z/down z/sexpr)))
-
-(defn assertion-next?
-  "Returns true if the node to the right is an `is` form."
-  [loc]
-  (= (symbol 'is) (-> loc z/right z/down z/sexpr)))
-
-(defn outer-testing?
-  "Returns true if the given node is an outer `testing` form."
-  [loc]
-  (and
-   (= (symbol 'testing) (-> loc z/down z/sexpr))
-   (= (symbol 'testing) (-> loc z/down z/right z/right z/down z/sexpr))))
-
-(defn assertion-true? 
-  "Returns true if the given assertion-loc is true."
-  [loc]
-  (eval (-> loc z/sexpr)))
-
-(defn test-deftest [loc]
-  (let [deftest loc]
-    (loop [loc deftest prefix-string ""
+  (let [test loc]
+    (loop [loc test prefix-string ""
            test-strings [] results [] assertions []]
       (cond
-        (deftest? loc)
+        (= (symbol 'deftest) (-> loc z/down z/sexpr))
         (recur (-> loc z/down z/right z/right)
                prefix-string test-strings results assertions)
-        (outer-testing? loc)
+        (and
+         (= (symbol 'testing) (-> loc z/down z/sexpr))
+         (= (symbol 'testing) (-> loc z/down z/right z/right z/down z/sexpr)))
         (recur (-> loc z/down z/right z/right)
                (-> loc z/down z/right z/sexpr)
                test-strings results assertions)
-        (testing? loc)
+        (= (symbol 'testing) (-> loc z/down z/sexpr))
         (recur (-> loc z/down z/right z/right)
                prefix-string
                (conj test-strings
@@ -73,38 +46,49 @@
                                     (-> loc z/down z/right z/sexpr))))
                (conj results [])
                assertions)
-        (and (assertion? loc) (assertion-next? loc))
+        (and 
+         (= (symbol 'is) (-> loc z/down z/sexpr)) 
+         (= (symbol 'is) (-> loc z/right z/down z/sexpr)))
         (recur (-> loc z/right)
                prefix-string
                test-strings
-               (conj results [(assertion-true? loc)])
+               (conj results [(eval (-> loc z/sexpr))])
                (conj assertions (z/sexpr loc)))
-        (assertion? loc)
+        (= (symbol 'is) (-> loc z/down z/sexpr))
         (recur (-> loc z/up z/right)
                prefix-string
                test-strings
                (conj (vec (butlast results))
-                     (conj (vec (last results)) (assertion-true? loc)))
+                     (conj (vec (last results)) (eval (-> loc z/sexpr))))
                (conj assertions (z/sexpr loc)))
         :else
-        {:test-name (-> deftest z/down z/right z/sexpr str)
+        {:test-name (-> test z/down z/right z/sexpr str)
          :results (vec (remove empty? results))
          :test-strings test-strings
          :assertions assertions}))))
 
-(defn test-file [loc]
+(defn test-file 
+  "Takes a zipper representing a parsed test file.
+   Finds each 'deftest form, tests it, and outputs
+   an ordered sequence of result maps."
+  [loc]
   (loop [loc loc
          tests []]
     (cond
       (nil? loc) tests
-      (deftest? loc) (recur (-> loc z/right) (conj tests (test-deftest loc)))
-      :else (recur (-> loc z/right) tests))))
+      (= (symbol 'deftest) (-> loc z/down z/sexpr)) 
+      (recur (-> loc z/right) (conj tests (test-deftest loc)))
+      :else 
+      (recur (-> loc z/right) tests))))
 
 (comment
   (test-file zloc)
   )
 
-(defn results [loc]
+(defn results 
+  "Takes a zipper representing a parsed test file.
+   Outputs the test results according to the spec."
+  [loc]
   (flatten
    (for [test (test-file zloc)]
      (if (empty? (:test-strings test))
