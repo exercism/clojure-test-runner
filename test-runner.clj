@@ -88,7 +88,9 @@
          :assertions assertions
          :task_id (Integer/parseInt (str/replace (str (test-meta test)) ":task" ""))}))))
 
-(test-deftest test-with-meta)
+(comment
+  (test-deftest test-with-meta)
+  )
 
 (defn test-file 
   "Takes a zipper representing a parsed test file.
@@ -105,7 +107,8 @@
       (recur (-> loc z/right) tests))))
 
 (comment
-  (test-file zloc)
+  (:task_id (first (test-file zloc)))
+  (get (:task_id test) n)
   )
 
 (defn results 
@@ -124,7 +127,8 @@
                     (every? true? (get (:results test) n)) "pass" 
                     (some false? (get (:results test) n)) "fail"
                     :else "error")
-          :test_code (str (get (:assertions test) n))})))))
+          :test_code (str (get (:assertions test) n))
+          :task_id (:task_id test)})))))
 
 (comment
   (results zloc)
