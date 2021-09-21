@@ -1,19 +1,19 @@
 #!/usr/bin/env bb
 
-(require '[clojure.test :refer [is]] 
- '[babashka.classpath :as cp]
+(require '[clojure.test :refer [is deftest]]
+         '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
 (def slug "annalyns-infiltration")
-(def slug "lucians-luscious-lasagna")
+
 (def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/")
-(def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/lucians-luscious-lasagna/")
+
 (load-file "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/src/annalyns_infiltration.clj")
 ;; Add solution source and tests to classpath
-(def slug (first *command-line-args*))
-(def in-dir (second *command-line-args*))
+;(def slug (first *command-line-args*))
+;(def in-dir (second *command-line-args*))
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 (require test-ns)
@@ -26,6 +26,20 @@
   (try (eval assertion)
        (catch Exception e
          (str e))))
+
+(def test-with-meta (z/of-string "(deftest ^:task6 learning-list-test
+                       (is (= 3 3)))"))
+
+(defn test-meta [loc]
+  (-> loc
+      (z/find-tag z/next :meta)
+      first
+      :children
+      first
+      :k))
+
+(comment
+  (test-meta test-with-meta))
 
 (defn test-deftest 
   "Traverses a zipper from a 'deftest node. Recursively 
@@ -71,7 +85,10 @@
         {:test-name (-> test z/down z/right z/sexpr str)
          :results (vec (remove empty? results))
          :test-strings test-strings
-         :assertions assertions}))))
+         :assertions assertions
+         :task_id (Integer/parseInt (str/replace (str (test-meta test)) ":task" ""))}))))
+
+(test-deftest test-with-meta)
 
 (defn test-file 
   "Takes a zipper representing a parsed test file.
@@ -103,26 +120,34 @@
                   "pass" "fail")}
        (for [n (range (count (:test-strings test)))]
          {:name (get (:test-strings test) n)
-          :status (if (every? true? (get (:results test) n))
-                    "pass" "fail")
-          :test_code (get (:assertions test) n)})))))
+          :status (cond 
+                    (every? true? (get (:results test) n)) "pass" 
+                    (some false? (get (:results test) n)) "fail"
+                    :else "error")
+          :test_code (str (get (:assertions test) n))})))))
 
 (comment
   (results zloc)
   (eval-is '(is (= true (annalyns-infiltration/can-fast-attack? false))))
   (eval-is '(is (= true (annas-infiltration/can-fast-attack? false))))
+  (eval-is '(is (= false (annalyns-infiltration/can-fast-attack? e))))
+  (results zloc)
   )
-
-
 
 ;; Produce JSON output
 
 (println (json/generate-string
       {:version 2
-       :status (if (every? #(= "pass" (:status %)) (results zloc))
-                 "pass" "fail")
+       :status (cond 
+                 (every? #(= "pass" (:status %)) (results zloc)) "pass" 
+                 (some #(= "fail" (:status %)) (results zloc)) "fail"
+                 :else "error")
+       :message 
+                  (first (remove #(or (= "pass" (:status %))
+                                      (= "fail" (:status %)))
+                                 (results zloc)))
        :tests
        (vec (results zloc))}
       {:pretty true}))
 
-(System/exit 0)
+;(System/exit 0)
