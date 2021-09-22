@@ -141,7 +141,7 @@
 ;; Produce JSON output
 
 (println (json/generate-string
-      {:version 2
+      {:version 3
        :status (cond 
                  (every? #(= "pass" (:status %)) (results zloc)) "pass" 
                  (some #(= "fail" (:status %)) (results zloc)) "fail"
