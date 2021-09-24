@@ -6,18 +6,17 @@
          '[clojure.string :as str]
          '[rewrite-clj.zip :as z])
 
-(def slug "annalyns-infiltration")
+(comment
+  (def slug "leap")
+  (def in-dir "/home/porky/exercism/clojure-test-runner/tests/example-success/")
+  )
 
-(def in-dir "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/")
-
-(load-file "/home/porky/exercism/clojure-test-runner/exercises/concept/annalyns-infiltration/src/annalyns_infiltration.clj")
 ;; Add solution source and tests to classpath
-;(def slug (first *command-line-args*))
-;(def in-dir (second *command-line-args*))
+(def slug (first *command-line-args*))
+(def in-dir (second *command-line-args*))
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 (require test-ns)
-(require (symbol slug))
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
@@ -27,9 +26,6 @@
        (catch Exception e
          (str e))))
 
-(def test-with-meta (z/of-string "(deftest ^:task6 learning-list-test
-                       (is (= 3 3)))"))
-
 (defn test-meta [loc]
   (-> loc
       (z/find-tag z/next :meta)
@@ -37,9 +33,6 @@
       :children
       first
       :k))
-
-(comment
-  (test-meta test-with-meta))
 
 (defn test-deftest 
   "Traverses a zipper from a 'deftest node. Recursively 
@@ -86,10 +79,10 @@
          :results (vec (remove empty? results))
          :test-strings test-strings
          :assertions assertions
-         :task_id (Integer/parseInt (str/replace (str (test-meta test)) ":task" ""))}))))
+         :task_id (when (number? (test-meta test)) (Integer/parseInt (str/replace (str (test-meta test)) ":task" "")))}))))
 
 (comment
-  (test-deftest test-with-meta)
+  (test-deftest (-> zloc z/right))
   )
 
 (defn test-file 
@@ -106,20 +99,15 @@
       :else 
       (recur (-> loc z/right) tests))))
 
-(comment
-  (:task_id (first (test-file zloc)))
-  (get (:task_id test) n)
-  )
-
 (defn results 
   "Takes a zipper representing a parsed test file.
    Outputs the test results according to the spec."
   [loc]
   (flatten
-   (for [test (test-file zloc)]
+   (for [test (test-file loc)]
      (if (empty? (:test-strings test))
        {:name (:test-name test)
-        :status (if (every? true? (:results test))
+        :status (if (every? true? (flatten (:results test)))
                   "pass" "fail")}
        (for [n (range (count (:test-strings test)))]
          {:name (get (:test-strings test) n)
@@ -154,4 +142,4 @@
        (vec (results zloc))}
       {:pretty true}))
 
-;(System/exit 0)
+(System/exit 0)
