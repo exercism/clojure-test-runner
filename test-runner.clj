@@ -68,7 +68,9 @@
                (conj results [(eval-is (-> loc z/sexpr))])
                (conj assertions (z/sexpr loc)))
         (= (symbol 'is) (-> loc z/down z/sexpr))
-        (recur (-> loc z/up z/right)
+        (recur (if (= (symbol 'testing) (-> loc z/up z/right z/sexpr))
+                 (-> loc z/up z/right)
+                 (-> loc z/right))
                prefix-string
                test-strings
                (conj (vec (butlast results))
@@ -82,6 +84,8 @@
          :task_id (when (number? (test-meta test)) (Integer/parseInt (str/replace (str (test-meta test)) ":task" "")))}))))
 
 (comment
+  (test-deftest (z/of-string "(deftest year-not-divisible-by-4 (is (not (leap/leap-year? 2015))))")
+)
   (test-deftest (-> zloc z/right))
   )
 
@@ -99,6 +103,9 @@
       :else 
       (recur (-> loc z/right) tests))))
 
+(comment
+  (test-file zloc))
+
 (defn results 
   "Takes a zipper representing a parsed test file.
    Outputs the test results according to the spec."
@@ -108,7 +115,8 @@
      (if (empty? (:test-strings test))
        {:name (:test-name test)
         :status (if (every? true? (flatten (:results test)))
-                  "pass" "fail")}
+                  "pass" "fail")
+        :test_code (str (:assertions test))}
        (for [n (range (count (:test-strings test)))]
          {:name (get (:test-strings test) n)
           :status (cond 
@@ -119,6 +127,7 @@
           :task_id (:task_id test)})))))
 
 (comment
+  (first (test-file zloc))
   (results zloc)
   (eval-is '(is (= true (annalyns-infiltration/can-fast-attack? false))))
   (eval-is '(is (= true (annas-infiltration/can-fast-attack? false))))
