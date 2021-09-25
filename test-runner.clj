@@ -1,6 +1,6 @@
 #!/usr/bin/env bb
 
-(require '[clojure.test :refer [is deftest]]
+(require '[clojure.test :as t :refer [is deftest]]
          '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
@@ -20,6 +20,8 @@
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
+
+(defmethod t/report :fail [m])
 
 (defn eval-is [assertion]
   (try (eval assertion)
@@ -116,7 +118,7 @@
        {:name (:test-name test)
         :status (if (every? true? (flatten (:results test)))
                   "pass" "fail")
-        :test_code (str (:assertions test))}
+        :test_code (str (first (:assertions test)))}
        (for [n (range (count (:test-strings test)))]
          {:name (get (:test-strings test) n)
           :status (cond 

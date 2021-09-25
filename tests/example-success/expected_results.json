@@ -1,6 +1,7 @@
 {
-  "version" : 2,
+  "version" : 3,
   "status" : "pass",
+  "message" : null,
   "tests" : [ {
     "name" : "year-not-divisible-by-4",
     "status" : "pass",
