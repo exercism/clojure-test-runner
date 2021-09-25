@@ -6,4 +6,4 @@ RUN apk add --no-cache jq coreutils bash
 WORKDIR /opt/test-runner
 
 COPY . .
-ENTRYPOINT ["/opt/test-runner/bin/run.sh"]
+ENTRYPOINT ["/opt/test-runner/bin/run.clj"]
