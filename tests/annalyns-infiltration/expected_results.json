@@ -1,0 +1,26 @@
+{
+  "version" : 3,
+  "status" : "pass",
+  "message" : null,
+  "tests" : [ {
+    "name" : "Fast attack if knight is awake",
+    "status" : "pass",
+    "test_code" : "(is (= false (annalyns-infiltration/can-fast-attack? true)))",
+    "task_id" : null
+  }, {
+    "name" : "Cannot spy if everyone is sleeping",
+    "status" : "pass",
+    "test_code" : "(is (= false (annalyns-infiltration/can-spy? false false false)))",
+    "task_id" : null
+  }, {
+    "name" : "Can signal prisoner if archer is sleeping and prisoner is awake",
+    "status" : "pass",
+    "test_code" : "(is (= true (annalyns-infiltration/can-signal-prisoner? false true)))",
+    "task_id" : null
+  }, {
+    "name" : "Cannot release prisoner if everyone is awake and pet dog is present",
+    "status" : "pass",
+    "test_code" : "(is (= false (annalyns-infiltration/can-free-prisoner? true true true true)))",
+    "task_id" : null
+  } ]
+}
