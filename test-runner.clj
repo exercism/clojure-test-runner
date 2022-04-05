@@ -14,6 +14,8 @@
 (require '[clojure.spec.alpha :as s]
          '[clojure.spec.gen.alpha :as gen])
 
+(prn (gen/sample (s/gen int?)))
+
 ;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
