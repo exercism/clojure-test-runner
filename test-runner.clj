@@ -4,8 +4,11 @@
          '[babashka.classpath :as cp]
          '[cheshire.core :as json]
          '[clojure.string :as str]
-         '[rewrite-clj.zip :as z]
-         '[clojure.spec.alpha :as s]
+         '[rewrite-clj.zip :as z])
+
+(cp/add-classpath "libs.jar")
+
+(require '[clojure.spec.alpha :as s]
          '[clojure.spec.gen.alpha :as gen])
 
 ;; Add solution source and tests to classpath
