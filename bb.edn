@@ -1,0 +1,2 @@
+{:deps {org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
+                                                 :git/sha "644a7fc216e43d5da87b07471b0f87d874107d1a"}}}

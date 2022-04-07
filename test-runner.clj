@@ -2,16 +2,10 @@
 
 (require '[clojure.test :as t]
          '[babashka.classpath :as cp]
-         '[babashka.deps :as deps]
          '[cheshire.core :as json]
          '[clojure.string :as str]
-         '[rewrite-clj.zip :as z])
-
-;; add support for clojure.spec
-(deps/add-deps '{:deps {org.babashka/spec.alpha {:git/url "https://github.com/babashka/spec.alpha"
-                                                 :git/sha "644a7fc216e43d5da87b07471b0f87d874107d1a"}}})
-
-(require '[clojure.spec.alpha :as s]
+         '[rewrite-clj.zip :as z]
+         '[clojure.spec.alpha :as s]
          '[clojure.spec.gen.alpha :as gen])
 
 ;; Add solution source and tests to classpath

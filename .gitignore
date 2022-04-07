@@ -17,3 +17,4 @@ tests/*/.lein-failures
 .lsp/
 exercises/
 run-length-encoding/
+.clj-kondo/
