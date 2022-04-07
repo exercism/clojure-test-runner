@@ -1,7 +1,6 @@
 /target
 /classes
 /checkouts
-*.jar
 *.class
 /.cpcache
 /.lein-*
