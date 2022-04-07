@@ -8,12 +8,12 @@
     (or (and p (not c))
         (and c s))))
 
-(prn (gen/sample (s/gen int?)))
+(gen/sample (s/gen int?))
 
 (s/def ::street (s/and string? (complement str/blank?)))
 (s/def ::street-number int?)
 (s/def ::address (s/keys :req-un [::street ::street-number]))
 (s/def ::name (s/and string? (complement str/blank?)))
 (s/def ::contact (s/keys :req-un [::name ::address]))
-(prn (gen/sample (s/gen ::contact)))
+(gen/sample (s/gen ::contact))
 
