@@ -12,11 +12,11 @@
          '[clojure.spec.gen.alpha :as gen])
 
 ;; Add solution source and tests to classpath
-(def slug (first *command-line-args*))
-(def in-dir (second *command-line-args*))
-
 (def slug "leap")
 (def in-dir "/home/bob/clojure-test-runner/tests/example-success/")
+
+(def slug (first *command-line-args*))
+(def in-dir (second *command-line-args*))
 
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
@@ -52,11 +52,6 @@
       :else 
       (recur (z/right loc))))
   
-(fn-name (-> zloc z/right))
-
-
-(z/sexpr zloc-src)
-
 (defn top-level-forms 
   "Traverses a zipper from the root node
    and returns a sequence of the top-level forms"
@@ -65,11 +60,6 @@
     (cond
       (nil? loc) forms
       :else (recur (z/right loc) (conj forms loc)))))
-
-(map z/sexpr (top-level-forms zloc-src))
-
-(-> zloc-src
-    z/right)
 
 (defn test-code?
   "Takes a zipper at a top-level form node and returns true 
@@ -81,10 +71,6 @@
               z/right
               z/sexpr))))
 
-(test-code? (-> zloc-src
-                z/right)
-            (-> zloc z/right))
-
 (defn test-code 
   "Takes a zipper at a deftest node,
    traverses the source file and returns the function being tested."
@@ -92,20 +78,6 @@
   (z/sexpr
    (first (filter #(test-code? % (-> test-loc z/right))
                   (top-level-forms zloc-src)))))
-
-(-> zloc-src
-    z/right
-    z/sexpr)
-
-#_(defn test-code
-  "Returns the code of the test at a given node."
-  [loc]
-  (-> loc z/down z/right z/right z/sexpr))
-
-(defn test-code
-  "Returns the code of the test at a given node."
-  [loc]
-  (-> loc z/down z/right z/right z/sexpr))
 
 (defn tests 
   "Traverses a zipper representing a parsed test file.
@@ -116,10 +88,6 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
       :else (recur (z/right loc) tests))))
-
-(comment
-  (tests zloc)
-  )
 
 (defn test-codes
   "Traverses a zipper representing a parsed test file.
