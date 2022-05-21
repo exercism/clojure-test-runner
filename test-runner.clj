@@ -16,7 +16,7 @@
 (def in-dir (second *command-line-args*))
 
 (def slug "leap")
-(def in-dir "/home/bob/clojure-test-runner/tests/example-success")
+(def in-dir "/home/bob/clojure-test-runner/tests/example-success/")
 
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
@@ -48,32 +48,54 @@
       (list? (z/sexpr loc)) 
       (recur (z/down loc))
       (str/starts-with? (z/sexpr loc) slug) 
-     (str/replace (str (z/sexpr loc)) (str slug "/") "")
+      (str/replace (str (z/sexpr loc)) (str slug "/") "")
       :else 
       (recur (z/right loc))))
   
 (fn-name (-> zloc z/right))
 
-(and 
- (not (str/includes? loc slug)))
-(symbol? (-> zloc z/right z/down z/sexpr))
 
-(comment
-(-> zloc
-               z/right
-               z/down
-               z/right
-               z/right
-               z/down
-               z/right
-               z/down
-               ;z/right
-               ;z/down
-               z/sexpr)
-  )
+(z/sexpr zloc-src)
 
-slug
-(str/includes? "leap/leap-year?" slug)
+(defn top-level-forms 
+  "Traverses a zipper from the root node
+   and returns a sequence of the top-level forms"
+  [z]
+  (loop [loc z forms []]
+    (cond
+      (nil? loc) forms
+      :else (recur (z/right loc) (conj forms loc)))))
+
+(map z/sexpr (top-level-forms zloc-src))
+
+(-> zloc-src
+    z/right)
+
+(defn test-code?
+  "Takes a zipper at a top-level form node and returns true 
+   if the function being called matches the function called in the test"
+  [form-loc test-loc]
+  (= (fn-name (-> test-loc z/right))
+     (str (-> form-loc
+              z/down
+              z/right
+              z/sexpr))))
+
+(test-code? (-> zloc-src
+                z/right)
+            (-> zloc z/right))
+
+(defn test-code 
+  "Takes a zipper at a deftest node,
+   traverses the source file and returns the function being tested."
+  [test-loc]
+  (z/sexpr
+   (first (filter #(test-code? % (-> test-loc z/right))
+                  (top-level-forms zloc-src)))))
+
+(-> zloc-src
+    z/right
+    z/sexpr)
 
 #_(defn test-code
   "Returns the code of the test at a given node."
