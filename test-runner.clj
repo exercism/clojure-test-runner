@@ -14,6 +14,10 @@
 ;; Add solution source and tests to classpath
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
+
+(def slug "leap")
+(def in-dir "/home/bob/clojure-test-runner/tests/example-success")
+
 (def test-ns (symbol (str slug "-test")))
 (cp/add-classpath (str in-dir "src:" in-dir "test"))
 (require test-ns)
@@ -24,6 +28,8 @@
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
+(def zloc-src (z/of-file (str in-dir "/src/" (str/replace slug "-" "_") ".clj")))
+
 (defn test? 
   "Returns true if the given node is a `deftest`."
   [loc]
@@ -33,6 +39,46 @@
   "Returns the name of the test at a given node."
   [loc]
   (-> loc z/down z/right z/sexpr))
+
+(defn fn-name 
+  "Takes a zipper at a deftest node and outputs
+   the name of the function being called."
+  [loc]
+    (cond
+      (list? (z/sexpr loc)) 
+      (recur (z/down loc))
+      (str/starts-with? (z/sexpr loc) slug) 
+     (str/replace (str (z/sexpr loc)) (str slug "/") "")
+      :else 
+      (recur (z/right loc))))
+  
+(fn-name (-> zloc z/right))
+
+(and 
+ (not (str/includes? loc slug)))
+(symbol? (-> zloc z/right z/down z/sexpr))
+
+(comment
+(-> zloc
+               z/right
+               z/down
+               z/right
+               z/right
+               z/down
+               z/right
+               z/down
+               ;z/right
+               ;z/down
+               z/sexpr)
+  )
+
+slug
+(str/includes? "leap/leap-year?" slug)
+
+#_(defn test-code
+  "Returns the code of the test at a given node."
+  [loc]
+  (-> loc z/down z/right z/right z/sexpr))
 
 (defn test-code
   "Returns the code of the test at a given node."
@@ -48,6 +94,10 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-name loc)))
       :else (recur (z/right loc) tests))))
+
+(comment
+  (tests zloc)
+  )
 
 (defn test-codes
   "Traverses a zipper representing a parsed test file.
