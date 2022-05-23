@@ -45,12 +45,10 @@
    the name of the function being called."
   [loc]
     (cond
-      (list? (z/sexpr loc)) 
-      (recur (z/down loc))
+      (list? (z/sexpr loc)) (recur (z/down loc))
       (str/starts-with? (z/sexpr loc) slug) 
       (str/replace (str (z/sexpr loc)) (str slug "/") "")
-      :else 
-      (recur (z/right loc))))
+      :else (recur (z/right loc))))
   
 (defn top-level-forms 
   "Traverses a zipper from the root node
@@ -62,21 +60,34 @@
       :else (recur (z/right loc) (conj forms loc)))))
 
 (defn test-code?
-  "Takes a zipper at a top-level form node and returns true 
-   if the function being called matches the function called in the test"
+  "Takes a top-level form node and a deftest node,
+   and returns true if the function being called 
+   matches the function called in the test."
   [form-loc test-loc]
-  (= (fn-name (-> test-loc z/right))
-     (str (-> form-loc
-              z/down
-              z/right
-              z/sexpr))))
+  (= (fn-name test-loc)
+     (str (-> form-loc z/down z/right z/sexpr))))
+
+(comment
+  (def node1
+    (-> zloc z/right z/right z/right z/right z/right z/right z/right z/right))
+  (def node2
+    (-> zloc z/right z/right z/right z/right z/right z/right z/right z/right z/right))
+  (z/sexpr node1)
+   (z/sexpr node2)
+  (str (-> node1 z/down z/right z/sexpr))
+  (str (-> node2 z/down z/right z/sexpr))
+  (fn-name node1)
+  (fn-name node2)
+  (test-code? (nth (top-level-forms zloc-src) 1) node1)
+  (test-code? (nth (top-level-forms zloc-src) 1) node2)
+  )
 
 (defn test-code 
   "Takes a zipper at a deftest node,
    traverses the source file and returns the function being tested."
   [test-loc]
   (z/sexpr
-   (first (filter #(test-code? % (-> test-loc z/right))
+   (first (filter #(test-code? % (-> test-loc))
                   (top-level-forms zloc-src)))))
 
 (defn tests 

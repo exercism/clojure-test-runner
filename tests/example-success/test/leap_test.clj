@@ -28,5 +28,3 @@
 
 (deftest year-divisible-by-200-but-not-by-400
   (is (not (leap/leap-year? 1800))))
-
-(clojure.test/run-all-tests)
