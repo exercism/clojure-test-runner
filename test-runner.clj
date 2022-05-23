@@ -28,6 +28,12 @@
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
+(def success (z/of-file (str "/home/bob/clojure-test-runner/tests/example-success/"
+                             "/test/" (str/replace slug "-" "_") "_test.clj")))
+
+(def all-fail (z/of-file (str "/home/bob/clojure-test-runner/tests/example-all-fail/"
+                             "/test/" (str/replace slug "-" "_") "_test.clj")))
+
 (def zloc-src (z/of-file (str in-dir "/src/" (str/replace slug "-" "_") ".clj")))
 
 (defn test? 
@@ -73,7 +79,7 @@
   (def node2
     (-> zloc z/right z/right z/right z/right z/right z/right z/right z/right z/right))
   (z/sexpr node1)
-   (z/sexpr node2)
+   (z/string node2)
   (str (-> node1 z/down z/right z/sexpr))
   (str (-> node2 z/down z/right z/sexpr))
   (fn-name node1)
@@ -86,9 +92,13 @@
   "Takes a zipper at a deftest node,
    traverses the source file and returns the function being tested."
   [test-loc]
-  (z/sexpr
+  (z/string
    (first (filter #(test-code? % (-> test-loc))
                   (top-level-forms zloc-src)))))
+
+(comment
+  (test-code node2)
+  )
 
 (defn tests 
   "Traverses a zipper representing a parsed test file.
@@ -109,6 +119,9 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-code loc)))
       :else (recur (z/right loc) tests))))
+
+(test-codes success)
+(test-codes all-fail)
 
 (defn test-code-map [loc]
   (zipmap (tests loc) (test-codes loc)))
