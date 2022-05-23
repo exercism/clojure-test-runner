@@ -12,9 +12,6 @@
          '[clojure.spec.gen.alpha :as gen])
 
 ;; Add solution source and tests to classpath
-(def slug "leap")
-(def in-dir "/home/bob/clojure-test-runner/tests/example-success/")
-
 (def slug (first *command-line-args*))
 (def in-dir (second *command-line-args*))
 
@@ -27,12 +24,6 @@
 
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
-
-(def success (z/of-file (str "/home/bob/clojure-test-runner/tests/example-success/"
-                             "/test/" (str/replace slug "-" "_") "_test.clj")))
-
-(def all-fail (z/of-file (str "/home/bob/clojure-test-runner/tests/example-all-fail/"
-                             "/test/" (str/replace slug "-" "_") "_test.clj")))
 
 (def zloc-src (z/of-file (str in-dir "/src/" (str/replace slug "-" "_") ".clj")))
 
@@ -119,9 +110,6 @@
       (nil? loc) tests
       (test? loc) (recur (z/right loc) (conj tests (test-code loc)))
       :else (recur (z/right loc) tests))))
-
-(test-codes success)
-(test-codes all-fail)
 
 (defn test-code-map [loc]
   (zipmap (tests loc) (test-codes loc)))
