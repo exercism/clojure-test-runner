@@ -122,5 +122,4 @@
       "status" : "pass",
       "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
     } ]
-  }
-  
+  }  
