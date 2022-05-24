@@ -1,125 +1,125 @@
 {
-    "version" : 2,
+  "version" : 2,
+  "status" : "pass",
+  "tests" : [ {
+    "name" : "fast-attack-awake-test",
     "status" : "pass",
-    "tests" : [ {
-      "name" : "fast-attack-awake-test",
-      "status" : "pass",
-      "test_code" : "(defn can-fast-attack?\n  \"Returns true if a fast-attack can be made, false otherwise.\"\n  [knight-awake?]\n  (not knight-awake?))"
-    }, {
-      "name" : "fast-attack-asleep-test",
-      "status" : "pass",
-      "test_code" : "(defn can-fast-attack?\n  \"Returns true if a fast-attack can be made, false otherwise.\"\n  [knight-awake?]\n  (not knight-awake?))"
-    }, {
-      "name" : "spy-everyone-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-but-knight-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-but-archer-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-but-prisoner-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-only-knight-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-only-archer-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-only-prisoner-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "spy-everyone-awake-test",
-      "status" : "pass",
-      "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
-    }, {
-      "name" : "signal-prisoner-archer-sleeping-prisoner-awake-test",
-      "status" : "pass",
-      "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
-    }, {
-      "name" : "signal-prisoner-archer-awake-prisoner-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
-    }, {
-      "name" : "signal-prisoner-both-sleeping-test",
-      "status" : "pass",
-      "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
-    }, {
-      "name" : "signal-prisoner-both-awake-test",
-      "status" : "pass",
-      "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
-    }, {
-      "name" : "release-prisoner-everyone-awake-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-everyone-awake-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-everyone-asleep-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-archer-awake-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-archer-awake-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-knight-awake-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-knight-awake-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-knight-asleep-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-archer-asleep-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-prisoner-asleep-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-prisoner-asleep-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-everyone-asleep-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-prisoner-awake-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-prisoner-awake-dog-absent-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-knight-awake-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    }, {
-      "name" : "release-prisoner-archer-asleep-dog-present-test",
-      "status" : "pass",
-      "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
-    } ]
-  }  
+    "test_code" : "(defn can-fast-attack?\n  \"Returns true if a fast-attack can be made, false otherwise.\"\n  [knight-awake?]\n  (not knight-awake?))"
+  }, {
+    "name" : "fast-attack-asleep-test",
+    "status" : "pass",
+    "test_code" : "(defn can-fast-attack?\n  \"Returns true if a fast-attack can be made, false otherwise.\"\n  [knight-awake?]\n  (not knight-awake?))"
+  }, {
+    "name" : "spy-everyone-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-but-knight-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-but-archer-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-but-prisoner-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-only-knight-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-only-archer-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-only-prisoner-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "spy-everyone-awake-test",
+    "status" : "pass",
+    "test_code" : "(defn can-spy?\n  \"Returns true if the kidnappers can be spied upon, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake?]\n  (or knight-awake? archer-awake? prisoner-awake?))"
+  }, {
+    "name" : "signal-prisoner-archer-sleeping-prisoner-awake-test",
+    "status" : "pass",
+    "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
+  }, {
+    "name" : "signal-prisoner-archer-awake-prisoner-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
+  }, {
+    "name" : "signal-prisoner-both-sleeping-test",
+    "status" : "pass",
+    "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
+  }, {
+    "name" : "signal-prisoner-both-awake-test",
+    "status" : "pass",
+    "test_code" : "(defn can-signal-prisoner?\n  \"Returns true if the prisoner can be signalled, false otherwise.\"\n  [archer-awake? prisoner-awake?]\n  (and (not archer-awake?)\n       prisoner-awake?))"
+  }, {
+    "name" : "release-prisoner-everyone-awake-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-everyone-awake-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-everyone-asleep-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-archer-awake-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-archer-awake-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-knight-awake-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-knight-awake-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-knight-asleep-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-archer-asleep-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-prisoner-asleep-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-prisoner-asleep-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-everyone-asleep-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-prisoner-awake-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-prisoner-awake-dog-absent-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-knight-awake-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  }, {
+    "name" : "release-prisoner-archer-asleep-dog-present-test",
+    "status" : "pass",
+    "test_code" : "(defn can-free-prisoner?\n  \"Returns true if prisoner can be freed, false otherwise.\"\n  [knight-awake? archer-awake? prisoner-awake? dog-present?]\n  (or (and (not knight-awake?)\n           (not archer-awake?)\n           prisoner-awake?)\n      (and (not archer-awake?)\n           dog-present?)))"
+  } ]
+}
