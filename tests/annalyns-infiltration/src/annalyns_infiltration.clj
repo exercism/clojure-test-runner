@@ -1,4 +1,4 @@
-(ns annalyns-infiltration)
+(ns leap)
 
 (defn can-fast-attack?
   "Returns true if a fast-attack can be made, false otherwise."

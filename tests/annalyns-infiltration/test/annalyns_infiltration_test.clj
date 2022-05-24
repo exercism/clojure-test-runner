@@ -1,4 +1,4 @@
-(ns annalyns-infiltration-test
+(ns leap-test
   (:require [clojure.test :refer [deftest testing is]]
             annalyns-infiltration))
 
