@@ -24,12 +24,12 @@
 ;; Parse test file into zipper using rewrite-clj
 (def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
-(defn test? 
+(defn test?
   "Returns true if the given node is a `deftest`."
   [loc]
   (= (symbol 'deftest) (-> loc z/down z/sexpr)))
 
-(defn test-name 
+(defn test-name
   "Returns the name of the test at a given node."
   [loc]
   (-> loc z/down z/right z/sexpr))
@@ -39,7 +39,7 @@
   [loc]
   (-> loc z/down z/right z/right z/sexpr))
 
-(defn tests 
+(defn tests
   "Traverses a zipper representing a parsed test file.
    Returns a vector of the test names in the order defined."
   [z]
@@ -81,7 +81,8 @@
                      :message (str "Expected " (:expected m) " but got " (:actual m))}))
 
 (defmethod t/report :error [m]
-  (swap! errors conj (:name (meta (first t/*testing-vars*)))))
+  (swap! errors conj {:name (:name (meta (first t/*testing-vars*)))
+                      :message (str "An unexpected error occurred:\n" (:actual m))}))
 
 (defmethod t/report :summary [m])
 
@@ -90,20 +91,20 @@
 ;; Produce JSON output
 
 (println (json/generate-string
-      {:version 2
-       :status (if (and (empty? @fails)
-                        (empty? @errors))
-                 "pass" "fail")
-       :tests (vec (for [test (tests zloc)]
-                     (cond
-                       (contains? (set (map :name @passes)) test)
-                       {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
-                       (contains? (set (map :name @fails)) test)
-                       {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @fails)))}
-                       (contains? (set (set @errors)) test)
-                       {:name test :status "error" :test_code (str (test (test-code-map zloc)))
-                        :message (:message (first (filter #(= test (:name %)) @errors)))})))}
+          {:version 2
+           :status (if (and (empty? @fails)
+                            (empty? @errors))
+                     "pass" "fail")
+           :tests (vec (for [test (tests zloc)]
+                         (cond
+                           (contains? (set (map :name @passes)) test)
+                           {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
+                           (contains? (set (map :name @fails)) test)
+                           {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
+                            :message (:message (first (filter #(= test (:name %)) @fails)))}
+                           (contains? (set (map :name @errors)) test)
+                           {:name test :status "error" :test_code (str (test (test-code-map zloc)))
+                            :message (:message (first (filter #(= test (:name %)) @errors)))})))}
           {:pretty false}))
 
 (System/exit 0)
