@@ -82,6 +82,7 @@
 
 (defmethod t/report :error [m]
   (swap! errors conj {:name (:name (meta (first t/*testing-vars*)))
+                      :status "error"
                       :message (str "An unexpected error occurred:\n" (:actual m))}))
 
 (defmethod t/report :summary [m])
@@ -96,15 +97,10 @@
                             (empty? @errors))
                      "pass" "fail")
            :tests (vec (for [test (tests zloc)]
-                         (cond
-                           (contains? (set (map :name @passes)) test)
-                           {:name test :status "pass" :test_code (str (test (test-code-map zloc)))}
-                           (contains? (set (map :name @fails)) test)
-                           {:name test :status "fail" :test_code (str (test (test-code-map zloc)))
-                            :message (:message (first (filter #(= test (:name %)) @fails)))}
-                           (contains? (set (map :name @errors)) test)
-                           {:name test :status "error" :test_code (str (test (test-code-map zloc)))
-                            :message (:message (first (filter #(= test (:name %)) @errors)))})))}
+                         (->> (concat @passes @fails @errors)
+                              (filter #(= test (:name %)))
+                              first
+                              (merge {:test_code (str (test (test-code-map zloc)))}))))}
           {:pretty false}))
 
 (System/exit 0)
