@@ -104,6 +104,6 @@
                        (contains? (set (set @errors)) test)
                        {:name test :status "error" :test_code (str (test (test-code-map zloc)))
                         :message (:message (first (filter #(= test (:name %)) @errors)))})))}
-      {:pretty true}))
+          {:pretty false}))
 
 (System/exit 0)

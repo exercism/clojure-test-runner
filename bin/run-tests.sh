@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Synopsis:
 # Test the test runner by running it against a predefined set of solutions 
@@ -29,11 +29,19 @@ for test_dir in tests/*; do
     # Normalize the results file
 
     echo "${test_dir_name}: comparing results.json to expected_results.json"
-    diff "${results_file_path}" "${expected_results_file_path}"
+    diff <(jq --sort-keys . "${expected_results_file_path}") \
+         <(jq --sort-keys . "${results_file_path}")
 
     if [ $? -ne 0 ]; then
+        echo "❌ ${test_dir_name} FAILED"
         exit_code=1
     fi
 done
+
+if [ $exit_code -ne 0 ]; then
+    echo "❌ One or more tests failed, see above"
+else
+    echo "✅ All tests passed"
+fi
 
 exit ${exit_code}
