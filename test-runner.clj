@@ -22,7 +22,8 @@
 ;; but the spec requires that we report them in order.
 
 ;; Parse test file into zipper using rewrite-clj
-(def zloc (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
+(def zloc
+  (z/of-file (str in-dir "/test/" (str/replace slug "-" "_") "_test.clj")))
 
 (defn test?
   "Returns true if the given node is a `deftest`."
@@ -90,10 +91,13 @@
 
 ;; logic for creating test results
 
+(defn error-message [err]
+  (or (:message (ex-data err)) (str err)))
+
 (defn get-message [m status]
   (case status
     "fail" (str "Expected " (:expected m) " but got " (:actual m))
-    "error" (str "An unexpected error occurred:\n" (:actual m))
+    "error" (str "An unexpected error occurred:\n" (error-message (:actual m)))
     "pass" nil))
 
 (defn get-test-code [test-name status]
@@ -101,8 +105,8 @@
     (if (= "pass" status)
       ;; for passing tests show the whole test
       (test-code-map test-name)
-      ;; for fails just the one that failed
-      ((test-assertions-map test-name) (dec a-count)))))
+      ;; for fails just the one that failed/default to the whole test if index is out of bounds
+      (get (test-assertions-map test-name) (dec a-count) (test-code-map test-name)))))
 
 (defn report [m status]
   (let [name (:name (meta (first t/*testing-vars*)))

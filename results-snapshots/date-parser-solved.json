@@ -1,0 +1,5 @@
+{
+  "message": "----- Error --------------------------------------------------------------------\nType:     java.lang.Exception\nMessage:  Could not find namespace: exercism.date-parser.\nLocation: /tmp/exercism-clojure-14435821047664397128/date-parser/test/date_parser_test.clj:2:3\n\n----- Context ------------------------------------------------------------------\n1: (ns date-parser-test\n2:   (:require [clojure.test :refer [deftest testing is]]\n     ^--- Could not find namespace: exercism.date-parser.\n3:             exercism.date-parser))\n4: \n5: (deftest day-test\n6:   (testing \"numeric pattern for day matches\"\n7:     (testing \"un-padded 1\"\n\n----- Stack trace --------------------------------------------------------------\ndate-parser-test - /tmp/exercism-clojure-14435821047664397128/date-parser/test/date_parser_test.clj:2:3\nuser             - /home/miridius/repos/exercism/clojure-test-runner/./test-runner.clj:19:1",
+  "status": "error",
+  "version": 2
+}
