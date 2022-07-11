@@ -65,7 +65,6 @@
     (testing "two letters"
       (is (nil? nil)))))
 
-
 (deftest day-names-test-pass
   (testing "day names match"
     (is (= "Sunday" "Sunday"))
@@ -173,7 +172,6 @@
     (is (= 48 48)))
   (testing "finds the largest product if span equals length"
     (is (= 18 (+ :foo)))))
-
 
 (deftest is-inside-let-pass
   (let [v [1 2 3 4]]

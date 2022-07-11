@@ -1,12 +1,10 @@
 {
-  "version": 2,
   "status": "fail",
   "tests": [
     {
       "name": "year-not-divisible-by-4",
-      "status": "error",
-      "test_code": "(is (not (leap/leap-year? 2015)))",
-      "message": "An unexpected error occurred:\nWrong number of args (0) passed to: function of arity 1"
+      "status": "pass",
+      "test_code": "(is (not (leap/leap-year? 2015)))"
     },
     {
       "name": "year-divisible-by-2-but-not-4",
@@ -14,16 +12,16 @@
       "test_code": "(is (not (leap/leap-year? 1970)))"
     },
     {
+      "message": "Expected (leap/leap-year? 1996) but got (not (leap/leap-year? 1996))",
       "name": "year-divisible-by-4-but-not-100",
-      "status": "error",
-      "test_code": "(is (leap/leap-year? 1996))",
-      "message": "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: (not= year 1996)"
+      "status": "fail",
+      "test_code": "(is (leap/leap-year? 1996))"
     },
     {
+      "message": "Expected (leap/leap-year? 1960) but got (not (leap/leap-year? 1960))",
       "name": "year-divisible-by-4-and-5",
-      "status": "error",
-      "test_code": "(is (leap/leap-year? 1960))",
-      "message": "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :foo"
+      "status": "fail",
+      "test_code": "(is (leap/leap-year? 1960))"
     },
     {
       "name": "year-divisible-by-100-but-not-400",
@@ -36,13 +34,15 @@
       "test_code": "(is (not (leap/leap-year? 1900)))"
     },
     {
+      "message": "Expected (leap/leap-year? 2000) but got (not (leap/leap-year? 2000))",
       "name": "year-divisible-by-400",
-      "status": "pass",
+      "status": "fail",
       "test_code": "(is (leap/leap-year? 2000))"
     },
     {
+      "message": "Expected (leap/leap-year? 2400) but got (not (leap/leap-year? 2400))",
       "name": "year-divisible-by-400-but-not-125",
-      "status": "pass",
+      "status": "fail",
       "test_code": "(is (leap/leap-year? 2400))"
     },
     {
@@ -50,5 +50,6 @@
       "status": "pass",
       "test_code": "(is (not (leap/leap-year? 1800)))"
     }
-  ]
+  ],
+  "version": 2
 }

@@ -17,6 +17,11 @@ To run this project's tests (i.e. test the test runner):
 
     $ ./bin/run-tests-in-docker.sh
 
+To test against the full clojure track and compare with with the results snapshots:
+
+1. Clone the `exercism/clojure` repo to your local machine if you don't have it already
+2. Run: `./bin/run-exercise-tests.clj path-to-clojure-repo` (defaults to `../clojure`)
+
 Build an uberjar:
 
     $ clojure -A:uberjar

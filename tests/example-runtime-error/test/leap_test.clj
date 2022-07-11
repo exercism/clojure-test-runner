@@ -3,6 +3,7 @@
             leap))
 
 (deftest year-not-divisible-by-4
+  (leap/leap-year?) ;; throws an ex-info
   (is (not (leap/leap-year? 2015))))
 
 (deftest year-divisible-by-2-but-not-4
