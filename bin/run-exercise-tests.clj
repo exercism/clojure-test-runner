@@ -97,7 +97,7 @@
       (if (:update opts)
         (update-snapshot snapshot-file results-file)
         (compare-snapshot snapshot-file results-file))
-      (do (println results)
+      (do (println (or (:message results) results))
           (println "❌ TEST FAILED: status should be" expected-status
                    "but instead it was" status)))))
 
