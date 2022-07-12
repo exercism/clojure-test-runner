@@ -83,8 +83,7 @@
           {:keys [exit]} @(process ["bash" "-c" cmd] {:inherit true})]
       (if (zero? exit)
         (do (println "✅ TEST PASSED") true)
-        (println "❌ TEST FAILED: results do not match snapshot"))
-      {:status (if (zero? exit) :success :fail)})
+        (println "❌ TEST FAILED: results do not match snapshot")))
     (do (println "❌ TEST FAILED: snapshot file missing")
         (println "💬 Hint: run this script with the -u (--update) flag to create/update snapshots"))))
 
