@@ -50,7 +50,7 @@
 (defn find-assertions
   "Returns a vector of the code for individual assertions in a given test."
   [loc]
-  (->> (z/of-string (z/->string loc)) ;; isolate subtree to prevent find from leaving (is there a better way?)
+  (->> (z/subzip loc) ;; isolate subtree to prevent find from leaving
        (iterate #(z/find-next-depth-first % assertion?))
        rest
        (take-while some?)
