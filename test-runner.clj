@@ -109,10 +109,11 @@
       (get (test-assertions-map test-name) (dec a-count) (test-code-map test-name)))))
 
 (defn report [m status]
-  (let [name (:name (meta (first t/*testing-vars*)))
+  (let [{:keys [name task]} (meta (first t/*testing-vars*))
         message (get-message m status)]
     (merge {:name name :status status :test_code (get-test-code name status)}
-           (when message {:message message}))))
+           (when message {:message message})
+           (when task {:task_id task}))))
 
 ;; Override clojure.test reporting methods to capture their results
 
