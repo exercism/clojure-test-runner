@@ -128,5 +128,5 @@
       "test_code": "(testing \"When both bases are negative, nil is returned\" (is (nil? (all-your-base/convert -2 (quote (1)) -7))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

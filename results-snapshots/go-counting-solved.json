@@ -12,5 +12,5 @@
       "test_code": "(is (= (g/territories [\" \"]) {:null-territory #{[0 0]}, :white-territory #{}, :black-territory #{}}))\n(is (= (g/territories [\" BW \" \" BW \"]) {:null-territory #{}, :white-territory #{[3 0] [3 1]}, :black-territory #{[0 0] [0 1]}}))\n(is (= (g/territories [\" B \"]) {:null-territory #{}, :white-territory #{}, :black-territory #{[0 0] [2 0]}}))"
     }
   ],
-  "version": 2
+  "version": 3
 }

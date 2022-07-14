@@ -14,5 +14,5 @@
       "test_code": "(is (= (g/territories [\" \"]) {:null-territory #{[0 0]}, :white-territory #{}, :black-territory #{}}))"
     }
   ],
-  "version": 2
+  "version": 3
 }

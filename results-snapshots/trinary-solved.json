@@ -52,5 +52,5 @@
       "test_code": "(testing \"0a1b2c should be 0\" (is (= 0 (to-decimal \"0a1b2c\"))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

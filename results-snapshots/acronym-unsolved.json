@@ -44,5 +44,5 @@
       "test_code": "(is (= \"CMOS\" (acronym/acronym \"Complementary metal-oxide semiconductor\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

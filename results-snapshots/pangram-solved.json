@@ -47,5 +47,5 @@
       "test_code": "(is (false? (pangram? \"the quick brown fox jumps over with lazy FX\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -25,5 +25,5 @@
       "test_code": "(testing \"12 is an abundant number\" (is (= :abundant (perfect-numbers/classify 12))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -92,5 +92,5 @@
       "test_code": "(is (thrown? IllegalArgumentException (say/number 1000000000000)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

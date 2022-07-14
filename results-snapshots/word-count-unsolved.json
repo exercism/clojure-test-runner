@@ -38,5 +38,5 @@
       "test_code": "(is (= {\"go\" 3} (word-count/word-count \"go Go GO\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

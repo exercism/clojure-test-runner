@@ -50,5 +50,5 @@
       "test_code": "(is (= 0 (binary/to-decimal \"carrot\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

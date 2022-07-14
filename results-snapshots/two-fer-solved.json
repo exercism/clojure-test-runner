@@ -17,5 +17,5 @@
       "test_code": "(is (= \"One for Bob, one for me.\" (two-fer/two-fer \"Bob\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -32,5 +32,5 @@
       "test_code": "(testing \"number < string-length\" (is (= #{\"234\" \"123\" \"345\"} (set (slices \"12345\" 3)))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -44,5 +44,5 @@
       "test_code": "(is (= [3 4 6] (-> db (grade-school/add \"Jennifer\" 4) (grade-school/add \"Kareem\" 6) (grade-school/add \"Christopher\" 4) (grade-school/add \"Kyle\" 3) (grade-school/sorted) (keys))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

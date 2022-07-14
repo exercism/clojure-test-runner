@@ -62,5 +62,5 @@
       "test_code": "(is (thrown-with-msg? Throwable (re-pattern \"not found\") (binary-search/search-for 20 short-vector)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -67,5 +67,5 @@
       "test_code": "(testing \"Encode a string and then decode it. Should return the same one.\" (is (= (rle/run-length-decode (rle/run-length-encode \"zzz ZZ  zZ\")) \"zzz ZZ  zZ\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

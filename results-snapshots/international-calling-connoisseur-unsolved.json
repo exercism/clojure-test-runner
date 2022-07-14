@@ -192,5 +192,5 @@
       "test_code": "(is (nil? (international-calling-connoisseur/longest-name {})))"
     }
   ],
-  "version": 2
+  "version": 3
 }

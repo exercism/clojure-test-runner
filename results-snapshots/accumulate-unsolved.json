@@ -32,5 +32,5 @@
       "test_code": "(is (= [[\"a1\" \"a2\" \"a3\"] [\"b1\" \"b2\" \"b3\"] [\"c1\" \"c2\" \"c3\"]] (-> (fn* [p1__2965#] (accumulate/accumulate (fn [n] (str p1__2965# n)) [1 2 3])) (accumulate/accumulate \"abc\"))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

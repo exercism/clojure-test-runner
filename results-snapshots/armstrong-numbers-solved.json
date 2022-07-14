@@ -52,5 +52,5 @@
       "test_code": "(testing \"Seventeen digit number that is an Armstrong number\" (is (armstrong? 21897142587612075)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

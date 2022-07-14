@@ -7,5 +7,5 @@
       "test_code": "(is (= \"Hello, World!\" (hello-world/hello)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

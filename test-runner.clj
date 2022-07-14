@@ -144,7 +144,7 @@
   {:name test-name :status :pass :test_code (test-code-map test-name)})
 
 (println (json/generate-string
-          {:version 2
+          {:version 3
            :status (if (empty? @fails+errors) :pass :fail)
            :tests (for [test tests]
                     (->> (concat @fails+errors @passes [(default-report test)])

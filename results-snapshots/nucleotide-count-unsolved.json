@@ -44,5 +44,5 @@
       "test_code": "(let [s \"AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC\"] (is (= {\\A 20, \\C 12, \\G 17, \\T 21} (nucleotide-count/nucleotide-counts s))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

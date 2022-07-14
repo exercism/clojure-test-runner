@@ -96,5 +96,5 @@
       "test_code": "(is (thrown? IllegalArgumentException (wordy/evaluate \"Who is the President of the United States?\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

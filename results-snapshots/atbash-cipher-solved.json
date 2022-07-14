@@ -42,5 +42,5 @@
       "test_code": "(let [plaintext \"The quick brown fox jumps over the lazy dog.\" cipher \"gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt\"] (is (= cipher (atbash-cipher/encode plaintext))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

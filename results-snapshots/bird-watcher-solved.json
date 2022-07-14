@@ -67,5 +67,5 @@
       "test_code": "(testing \"Odd week for week that does not match pattern\" (is (= false (bird-watcher/odd-week? [2 2 1 0 1 1 1]))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

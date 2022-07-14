@@ -31,5 +31,5 @@
       "test_code": "(testing \"All values in nested list are nil\" (is (empty? (flatten-array/flatten [nil [[[nil]]] nil nil [[nil nil] nil] nil]))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

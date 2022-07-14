@@ -67,5 +67,5 @@
       "test_code": "(is (= \"imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau \" (crypto-square/normalize-ciphertext \"If man was meant to stay on the ground, god would have given us roots.\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

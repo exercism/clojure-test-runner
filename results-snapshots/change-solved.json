@@ -47,5 +47,5 @@
       "test_code": "(is (thrown-with-msg? IllegalArgumentException (re-pattern \"cannot change\") (issue 10 #{20 3 8})))"
     }
   ],
-  "version": 2
+  "version": 3
 }

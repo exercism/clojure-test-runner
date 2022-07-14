@@ -32,5 +32,5 @@
       "test_code": "(testing \"there is no zeroth prime\" (is (thrown? IllegalArgumentException (nth-prime/nth-prime 0))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

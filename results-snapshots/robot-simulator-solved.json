@@ -62,5 +62,5 @@
       "test_code": "(let [roomba (->> (robot-simulator/robot {:y 4, :x 8} :south) (robot-simulator/simulate \"LAAARRRALLLL\"))] (is (= {:y 5, :x 11} (:coordinates roomba))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

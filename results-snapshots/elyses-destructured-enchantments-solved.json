@@ -67,5 +67,5 @@
       "test_code": "(is (= (insert-face-cards []) [\"jack\" \"queen\" \"king\"]))"
     }
   ],
-  "version": 2
+  "version": 3
 }
