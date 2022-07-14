@@ -94,39 +94,40 @@
 (defn error-message [err]
   (or (:message (ex-data err)) (str err)))
 
-(defn get-message [m status]
-  (case status
-    "fail" (str "Expected " (:expected m) " but got " (:actual m))
-    "error" (str "An unexpected error occurred:\n" (error-message (:actual m)))
-    "pass" nil))
+(defn get-message [{:keys [type] :as m}]
+  (case type
+    :fail (str "Expected " (:expected m) " but got " (:actual m))
+    :error (str "An unexpected error occurred:\n" (error-message (:actual m)))
+    :pass nil))
 
 (defn get-test-code [test-name status]
   (let [a-count ((swap! assertion-counts update test-name (fnil inc 0)) test-name)]
-    (if (= "pass" status)
+    (if (= :pass status)
       ;; for passing tests show the whole test
       (test-code-map test-name)
       ;; for fails just the one that failed/default to the whole test if index is out of bounds
       (get (test-assertions-map test-name) (dec a-count) (test-code-map test-name)))))
 
-(defn report [m status]
-  (let [{:keys [name task]} (meta (first t/*testing-vars*))
-        message (get-message m status)]
-    (merge {:name name :status status :test_code (get-test-code name status)}
-           (when message {:message message})
-           (when task {:task_id task}))))
+(defn report [{:keys [type] :as m}]
+  (let [{:keys [name task]} (meta (first t/*testing-vars*))]
+    {:name name
+     :status type
+     :task_id task
+     :test_code (get-test-code name type)
+     :message (get-message m)}))
 
 ;; Override clojure.test reporting methods to capture their results
 
 (defmethod t/report :begin-test-ns [_])
 
 (defmethod t/report :pass [m]
-  (swap! passes conj (report m "pass")))
+  (swap! passes conj (report m)))
 
 (defmethod t/report :fail [m]
-  (swap! fails+errors conj (report m "fail")))
+  (swap! fails+errors conj (report m)))
 
 (defmethod t/report :error [m]
-  (swap! fails+errors conj (report m "error")))
+  (swap! fails+errors conj (report m)))
 
 (defmethod t/report :summary [_])
 
@@ -134,12 +135,16 @@
 
 ;; Produce JSON output
 
+(defn remove-nil-vals [m]
+  (into {} (remove #(nil? (second %)) m)))
+
 (println (json/generate-string
           {:version 2
-           :status (if (empty? @fails+errors) "pass" "fail")
+           :status (if (empty? @fails+errors) :pass :fail)
            :tests (for [test tests]
                     (->> (concat @fails+errors @passes) ;; failure takes priority!
                          (filter #(= test (:name %)))
-                         first))}))
+                         first
+                         remove-nil-vals))}))
 
 (System/exit 0)
