@@ -138,11 +138,16 @@
 (defn remove-nil-vals [m]
   (into {} (remove #(nil? (second %)) m)))
 
+(defn default-report
+  "A test that has no assertions and throws no errors passes by default"
+  [test-name]
+  {:name test-name :status :pass :test_code (test-code-map test-name)})
+
 (println (json/generate-string
           {:version 2
            :status (if (empty? @fails+errors) :pass :fail)
            :tests (for [test tests]
-                    (->> (concat @fails+errors @passes) ;; failure takes priority!
+                    (->> (concat @fails+errors @passes [(default-report test)])
                          (filter #(= test (:name %)))
                          first
                          remove-nil-vals))}))
