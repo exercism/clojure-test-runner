@@ -1,5 +1,5 @@
-FROM babashka/babashka:0.8.1-SNAPSHOT-alpine
-LABEL Name=clojure-test-runner Version=0.0.3
+FROM babashka/babashka:0.10.164-SNAPSHOT-alpine
+LABEL Name=clojure-test-runner Version=0.0.4
 
 RUN apk add --no-cache jq coreutils bash
 
