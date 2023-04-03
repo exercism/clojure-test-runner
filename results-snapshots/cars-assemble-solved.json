@@ -62,5 +62,5 @@
       "test_code": "(testing \"Working items for speed 10\" (is (= 28 (cars-assemble/working-items 10))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

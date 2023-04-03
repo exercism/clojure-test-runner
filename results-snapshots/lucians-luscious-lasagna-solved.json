@@ -32,5 +32,5 @@
       "test_code": "(is (= 16 (lucians-luscious-lasagna/total-time 4 8)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

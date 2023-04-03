@@ -90,14 +90,14 @@
 (defn run-test [{:keys [slug] :as exercise} path solved?]
   (check-proc-inherit run-script slug path path)
   (let [results-file (path-str path "results.json")
-        {:keys [status] :as results} (-> results-file slurp (json/parse-string true))
+        {:keys [status message] :as results} (-> results-file slurp (json/parse-string true))
         expected-status (if solved? "pass" "fail")
         snapshot-file (snapshot-path exercise solved?)]
     (if (= status expected-status)
       (if (:update opts)
         (update-snapshot snapshot-file results-file)
         (compare-snapshot snapshot-file results-file))
-      (do (println (or (:message results) results))
+      (do (if message (println message) (prn results))
           (println "❌ TEST FAILED: status should be" expected-status
                    "but instead it was" status)))))
 

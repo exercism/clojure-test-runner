@@ -32,5 +32,5 @@
       "test_code": "(testing \"The account can handle parallel access\" (let [account (bank-account/open-account) add-10 (fn* [] (bank-account/update-balance account 10))] (doall (pcalls add-10 add-10 add-10 add-10 add-10)) (is (= 50 (bank-account/get-balance account)))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

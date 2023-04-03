@@ -37,5 +37,5 @@
       "test_code": "(is (= nil (hamming/distance \"AAAC\" \"TAGGGGAGGCTAGCGGTAGGAC\")))\n(is (= nil (hamming/distance \"GACTACGGACAGGGTAACATAG\" \"GACA\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

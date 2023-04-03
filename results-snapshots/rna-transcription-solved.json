@@ -32,5 +32,5 @@
       "test_code": "(is (thrown? AssertionError (rna-transcription/to-rna \"XCGFGGTDTTAA\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

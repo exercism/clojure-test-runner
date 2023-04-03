@@ -142,5 +142,5 @@
       "test_code": "(is (f [\"4H 6H 7H 8H 5H\" \"5S 7S 8S 9S 6S\"] [\"5S 7S 8S 9S 6S\"]))"
     }
   ],
-  "version": 2
+  "version": 3
 }

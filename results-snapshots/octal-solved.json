@@ -77,5 +77,5 @@
       "test_code": "(testing \"Leading zero should be valid octal\" (is (= 9 (to-decimal \"011\"))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

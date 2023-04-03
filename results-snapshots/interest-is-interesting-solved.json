@@ -137,5 +137,5 @@
       "test_code": "(is (= 0 (interest-is-interesting/amount-to-donate -152964.231M 5.4)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

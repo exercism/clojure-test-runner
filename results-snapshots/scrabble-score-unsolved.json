@@ -38,5 +38,5 @@
       "test_code": "(is (= 41 (scrabble-score/score-word \"OXYPHENBUTAZONE\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

@@ -38,5 +38,5 @@
       "test_code": "(is (= song-3-0 (beer-song/sing 3)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

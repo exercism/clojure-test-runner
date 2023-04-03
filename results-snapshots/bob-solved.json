@@ -127,5 +127,5 @@
       "test_code": "(is (= \"Whatever.\" (bob/response-for \"This is a statement ending with whitespace      \")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

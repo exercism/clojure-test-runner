@@ -27,5 +27,5 @@
       "test_code": "(let [string \"VCRRGVRG\\nRVGCCGCV\" students [\"Samantha\" \"Patricia\" \"Xander\" \"Roger\"] surprise-garden (kindergarten-garden/garden string students)] (is (= [:violets :clover :radishes :violets] (:patricia surprise-garden))) (is (= [:radishes :radishes :grass :clover] (:roger surprise-garden))) (is (= [:grass :violets :clover :grass] (:samantha surprise-garden))) (is (= [:radishes :grass :clover :violets] (:xander surprise-garden))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

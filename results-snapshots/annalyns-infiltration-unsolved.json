@@ -182,5 +182,5 @@
       "test_code": "(testing \"Can release prisoner if only archer is asleep and pet dog is present\" (is (= true (annalyns-infiltration/can-free-prisoner? true false true true))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

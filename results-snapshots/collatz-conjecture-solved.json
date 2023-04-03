@@ -32,5 +32,5 @@
       "test_code": "(testing \"negative value is an error\" (is (thrown? Throwable (collatz -15))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

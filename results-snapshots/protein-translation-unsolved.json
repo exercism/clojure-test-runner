@@ -68,5 +68,5 @@
       "test_code": "(is (= [\"Tryptophan\" \"Cysteine\" \"Tyrosine\"] (protein-translation/translate-rna \"UGGUGUUAUUAAUGGUUU\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

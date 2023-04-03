@@ -51,7 +51,11 @@
       "status": "pass",
       "test_code": "(is (= [0 2 4] (discard odd? (range 6))))"
     },
-    null
+    {
+      "name": "does-not-use-existing-implementations",
+      "status": "pass",
+      "test_code": "(with-redefs [filter (fn-throw-exception \"Implement without filter!\") remove (fn-throw-exception \"Implement without remove!\") filterv (fn-throw-exception \"Implement without filterv!\")] (dorun (retain even? (range 10))) (dorun (discard even? (range 10))))"
+    }
   ],
-  "version": 2
+  "version": 3
 }

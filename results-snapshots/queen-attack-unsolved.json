@@ -20,5 +20,5 @@
       "test_code": "(is (= false (queen-attack/can-attack {:w [2 3], :b [4 7]})))"
     }
   ],
-  "version": 2
+  "version": 3
 }

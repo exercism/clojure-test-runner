@@ -42,5 +42,5 @@
       "test_code": "(let [s (reduce str (repeat 1000 \"overflow?\")) rs (reduce str (repeat 1000 \"?wolfrevo\"))] (is (= rs (reverse-string/reverse-string s))))"
     }
   ],
-  "version": 2
+  "version": 3
 }

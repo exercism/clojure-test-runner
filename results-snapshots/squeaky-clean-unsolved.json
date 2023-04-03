@@ -56,5 +56,5 @@
       "test_code": "(is (= \"_AbcĐCTRL\" (squeaky-clean/clean \"9 -abcĐ😀ω\u0000\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

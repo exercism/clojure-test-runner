@@ -74,5 +74,5 @@
       "test_code": "(is (zero? (sum-of-multiples/sum-of-multiples (quote ()) 10000)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

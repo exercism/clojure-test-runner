@@ -57,5 +57,5 @@
       "test_code": "(is (= \"Corrupt disk (error)\" (log-levels/reformat \"[ERROR]: \\t Corrupt disk\\t \\t \\r\\n\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }

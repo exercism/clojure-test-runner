@@ -57,5 +57,5 @@
       "test_code": "(is (= [11 9539 894119] (prime-factors/of 93819012551)))"
     }
   ],
-  "version": 2
+  "version": 3
 }

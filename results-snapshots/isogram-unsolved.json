@@ -14,5 +14,5 @@
       "test_code": "(is (not (isogram/isogram? \"eleven\")))"
     }
   ],
-  "version": 2
+  "version": 3
 }
