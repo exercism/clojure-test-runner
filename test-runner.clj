@@ -111,7 +111,7 @@
 (defn report [{:keys [type] :as m}]
   (let [{:keys [name task]} (meta (first t/*testing-vars*))]
     {:name name
-     :status type
+     :status (if (= :pass type) :pass :fail)
      :task_id task
      :test_code (get-test-code name type)
      :message (get-message m)}))
@@ -154,3 +154,4 @@
           {:pretty true}))
 
 (System/exit 0)
+                                                                                                                                                                                                                                                                                                                       :message "An unexpected error occurred:\nWrong number of args (0) passed to: leap/leap-year?"}]

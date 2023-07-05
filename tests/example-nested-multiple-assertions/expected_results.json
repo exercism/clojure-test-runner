@@ -1,91 +1,75 @@
 {
-  "version": 3,
-  "status": "fail",
-  "tests": [
-    {
-      "name": "day-test-pass",
-      "status": "pass",
-      "test_code": "(testing \"numeric pattern for day matches\" (testing \"un-padded 1\" (is (= \"1\" \"1\"))) (testing \"un-padded 2\" (is (= \"2\" \"2\"))) (testing \"un-padded 3\" (is (= \"3\" \"3\"))) (testing \"un-padded 4\" (is (= \"4\" \"4\"))))\n(testing \"numeric pattern for day doesn't match\" (testing \"too few digits\" (is (nil? nil))) (testing \"too many digits\" (is (nil? nil))) (testing \"one letter\" (is (nil? nil))) (testing \"two letters\" (is (nil? nil))))"
-    },
-    {
-      "name": "day-test-fail",
-      "status": "fail",
-      "test_code": "(testing \"numeric pattern for day matches\" (testing \"un-padded 1\" (is (= \"1\" \"1\"))) (testing \"un-padded 2\" (is (= \"2\" \"2\"))) (testing \"un-padded 3\" (is (= \"3\" \"WRONG\"))) (testing \"un-padded 4\" (is (= \"4\" \"4\"))))",
-      "message": "Expected (= \"3\" \"WRONG\") but got (not (= \"3\" \"WRONG\"))"
-    },
-    {
-      "name": "day-test-error",
-      "status": "error",
-      "test_code": "(testing \"numeric pattern for day doesn't match\" (testing \"too few digits\" (is (nil? nil))) (testing \"too many digits\" (is (nil? nil))) (testing \"one letter\" (is (nil? (case :oh-no!)))) (testing \"two letters\" (is (nil? nil))))",
-      "message": "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :oh-no!"
-    },
-    {
-      "name": "day-names-test-pass",
-      "status": "pass",
-      "test_code": "(testing \"day names match\" (is (= \"Sunday\" \"Sunday\")) (is (= \"Monday\" \"Monday\")) (is (= \"Tuesday\" \"Tuesday\")) (is (= \"Wednesday\" \"Wednesday\")) (is (= \"Thursday\" \"Thursday\")) (is (= \"Friday\" \"Friday\")) (is (= \"Saturday\" \"Saturday\")))\n(testing \"day names don't match\" (testing \"combined\" (is (nil? nil))) (testing \"short name\" (is (nil? nil))) (testing \"numeric day of the week (0-indexed)\" (is (nil? nil))) (testing \"numeric day of the week (1-indexed)\" (is (nil? nil))))"
-    },
-    {
-      "name": "day-names-test-fail",
-      "status": "fail",
-      "test_code": "(testing \"day names don't match\" (testing \"combined\" (is (nil? false))) (testing \"short name\" (is (nil? nil))) (testing \"numeric day of the week (0-indexed)\" (is (nil? nil))) (testing \"numeric day of the week (1-indexed)\" (is (nil? nil))))",
-      "message": "Expected (nil? false) but got (not (nil? false))"
-    },
-    {
-      "name": "day-names-test-error",
-      "status": "error",
-      "test_code": "(testing \"day names match\" (is (= \"Sunday\" \"Sunday\")) (is (= \"Monday\" \"Monday\")) (is (= \"Tuesday\" \"Tuesday\")) (is (= \"Wednesday\" \"Wednesday\")) (is (= \"Thursday\" \"Thursday\")) (is (= \"Friday\" \"Friday\")) (is (= \"Saturday\" (assert nil))))",
-      "message": "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: nil"
-    },
-    {
-      "name": "increment-decrement-and-get-balance-pass",
-      "status": "pass",
-      "test_code": "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))"
-    },
-    {
-      "name": "increment-decrement-and-get-balance-fail",
-      "status": "fail",
-      "test_code": "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 1000 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))",
-      "message": "Expected (= 1000 (clojure.core/deref account)) but got (not (= 1000 10))"
-    },
-    {
-      "name": "increment-decrement-and-get-balance-error",
-      "status": "error",
-      "test_code": "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref (deref account)))) (swap! account + -10) (is (= 0 (deref account)))))",
-      "message": "An unexpected error occurred:\njava.lang.ClassCastException: java.lang.Long cannot be cast to java.util.concurrent.Future"
-    },
-    {
-      "name": "largest-series-tests-pass",
-      "status": "pass",
-      "test_code": "(testing \"can find the largest product of 2 with numbers in order\" (is (= 72 72)))\n(testing \"can find the largest product of 2\" (is (= 48 48)))\n(testing \"finds the largest product if span equals length\" (is (= 18 18)))"
-    },
-    {
-      "name": "largest-series-tests-fail",
-      "status": "fail",
-      "test_code": "(testing \"can find the largest product of 2 with numbers in order\" (is (= 72 \"WRONG\")))",
-      "message": "Expected (= 72 \"WRONG\") but got (not (= 72 \"WRONG\"))"
-    },
-    {
-      "name": "largest-series-tests-error",
-      "status": "error",
-      "test_code": "(testing \"finds the largest product if span equals length\" (is (= 18 (+ :foo))))",
-      "message": "An unexpected error occurred:\njava.lang.ClassCastException: clojure.lang.Keyword cannot be cast to java.lang.Number"
-    },
-    {
-      "name": "is-inside-let-pass",
-      "status": "pass",
-      "test_code": "(let [v [1 2 3 4]] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))"
-    },
-    {
-      "name": "is-inside-let-fail",
-      "status": "fail",
-      "test_code": "(let [v (range 4)] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))",
-      "message": "Expected (= 2 (second v)) but got (not (= 2 1))"
-    },
-    {
-      "name": "is-inside-let-error",
-      "status": "error",
-      "test_code": "(let [v 4] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))",
-      "message": "An unexpected error occurred:\njava.lang.UnsupportedOperationException: count not supported on this type: Long"
-    }
-  ]
+  "version" : 3,
+  "status" : "fail",
+  "tests" : [ {
+    "name" : "day-test-pass",
+    "status" : "pass",
+    "test_code" : "(testing \"numeric pattern for day matches\" (testing \"un-padded 1\" (is (= \"1\" \"1\"))) (testing \"un-padded 2\" (is (= \"2\" \"2\"))) (testing \"un-padded 3\" (is (= \"3\" \"3\"))) (testing \"un-padded 4\" (is (= \"4\" \"4\"))))\n(testing \"numeric pattern for day doesn't match\" (testing \"too few digits\" (is (nil? nil))) (testing \"too many digits\" (is (nil? nil))) (testing \"one letter\" (is (nil? nil))) (testing \"two letters\" (is (nil? nil))))"
+  }, {
+    "name" : "day-test-fail",
+    "status" : "fail",
+    "test_code" : "(testing \"numeric pattern for day matches\" (testing \"un-padded 1\" (is (= \"1\" \"1\"))) (testing \"un-padded 2\" (is (= \"2\" \"2\"))) (testing \"un-padded 3\" (is (= \"3\" \"WRONG\"))) (testing \"un-padded 4\" (is (= \"4\" \"4\"))))",
+    "message" : "Expected (= \"3\" \"WRONG\") but got (not (= \"3\" \"WRONG\"))"
+  }, {
+    "name" : "day-test-error",
+    "status" : "fail",
+    "test_code" : "(testing \"numeric pattern for day doesn't match\" (testing \"too few digits\" (is (nil? nil))) (testing \"too many digits\" (is (nil? nil))) (testing \"one letter\" (is (nil? (case :oh-no!)))) (testing \"two letters\" (is (nil? nil))))",
+    "message" : "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :oh-no!"
+  }, {
+    "name" : "day-names-test-pass",
+    "status" : "pass",
+    "test_code" : "(testing \"day names match\" (is (= \"Sunday\" \"Sunday\")) (is (= \"Monday\" \"Monday\")) (is (= \"Tuesday\" \"Tuesday\")) (is (= \"Wednesday\" \"Wednesday\")) (is (= \"Thursday\" \"Thursday\")) (is (= \"Friday\" \"Friday\")) (is (= \"Saturday\" \"Saturday\")))\n(testing \"day names don't match\" (testing \"combined\" (is (nil? nil))) (testing \"short name\" (is (nil? nil))) (testing \"numeric day of the week (0-indexed)\" (is (nil? nil))) (testing \"numeric day of the week (1-indexed)\" (is (nil? nil))))"
+  }, {
+    "name" : "day-names-test-fail",
+    "status" : "fail",
+    "test_code" : "(testing \"day names don't match\" (testing \"combined\" (is (nil? false))) (testing \"short name\" (is (nil? nil))) (testing \"numeric day of the week (0-indexed)\" (is (nil? nil))) (testing \"numeric day of the week (1-indexed)\" (is (nil? nil))))",
+    "message" : "Expected (nil? false) but got (not (nil? false))"
+  }, {
+    "name" : "day-names-test-error",
+    "status" : "fail",
+    "test_code" : "(testing \"day names match\" (is (= \"Sunday\" \"Sunday\")) (is (= \"Monday\" \"Monday\")) (is (= \"Tuesday\" \"Tuesday\")) (is (= \"Wednesday\" \"Wednesday\")) (is (= \"Thursday\" \"Thursday\")) (is (= \"Friday\" \"Friday\")) (is (= \"Saturday\" (assert nil))))",
+    "message" : "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: nil"
+  }, {
+    "name" : "increment-decrement-and-get-balance-pass",
+    "status" : "pass",
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))"
+  }, {
+    "name" : "increment-decrement-and-get-balance-fail",
+    "status" : "fail",
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 1000 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))",
+    "message" : "Expected (= 1000 (clojure.core/deref account)) but got (not (= 1000 10))"
+  }, {
+    "name" : "increment-decrement-and-get-balance-error",
+    "status" : "fail",
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref (deref account)))) (swap! account + -10) (is (= 0 (deref account)))))",
+    "message" : "An unexpected error occurred:\njava.lang.ClassCastException: java.lang.Long cannot be cast to java.util.concurrent.Future"
+  }, {
+    "name" : "largest-series-tests-pass",
+    "status" : "pass",
+    "test_code" : "(testing \"can find the largest product of 2 with numbers in order\" (is (= 72 72)))\n(testing \"can find the largest product of 2\" (is (= 48 48)))\n(testing \"finds the largest product if span equals length\" (is (= 18 18)))"
+  }, {
+    "name" : "largest-series-tests-fail",
+    "status" : "fail",
+    "test_code" : "(testing \"can find the largest product of 2 with numbers in order\" (is (= 72 \"WRONG\")))",
+    "message" : "Expected (= 72 \"WRONG\") but got (not (= 72 \"WRONG\"))"
+  }, {
+    "name" : "largest-series-tests-error",
+    "status" : "fail",
+    "test_code" : "(testing \"finds the largest product if span equals length\" (is (= 18 (+ :foo))))",
+    "message" : "An unexpected error occurred:\njava.lang.ClassCastException: clojure.lang.Keyword cannot be cast to java.lang.Number"
+  }, {
+    "name" : "is-inside-let-pass",
+    "status" : "pass",
+    "test_code" : "(let [v [1 2 3 4]] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))"
+  }, {
+    "name" : "is-inside-let-fail",
+    "status" : "fail",
+    "test_code" : "(let [v (range 4)] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))",
+    "message" : "Expected (= 2 (second v)) but got (not (= 2 1))"
+  }, {
+    "name" : "is-inside-let-error",
+    "status" : "fail",
+    "test_code" : "(let [v 4] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))",
+    "message" : "An unexpected error occurred:\njava.lang.UnsupportedOperationException: count not supported on this type: Long"
+  } ]
 }

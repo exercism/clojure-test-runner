@@ -1,58 +1,48 @@
 {
-  "version": 3,
-  "status": "fail",
-  "tests": [
-    {
-      "name": "pass-fail-error",
-      "status": "fail",
-      "test_code": "(is (= true false) :2)",
-      "message": "Expected (= true false) but got (not (= true false))"
-    },
-    {
-      "name": "fail-error-pass",
-      "status": "fail",
-      "test_code": "(is (= true false) :1)",
-      "message": "Expected (= true false) but got (not (= true false))"
-    },
-    {
-      "name": "error-pass-fail",
-      "status": "error",
-      "test_code": "(is (assert false) :1)",
-      "message": "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: false"
-    },
-    {
-      "name": "pass-fail-pass",
-      "status": "fail",
-      "test_code": "(is (= true false) :2)",
-      "message": "Expected (= true false) but got (not (= true false))"
-    },
-    {
-      "name": "pass-pass-pass",
-      "status": "pass",
-      "test_code": "(is (= true true) :1)\n(is (= true true) :2)\n(is (= true true) :3)"
-    },
-    {
-      "name": "error-pass-error",
-      "status": "error",
-      "test_code": "(is (assert false) :1)",
-      "message": "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: false"
-    },
-    {
-      "name": "pass-error-pass-error",
-      "status": "error",
-      "test_code": "(is (leap/leap-year? 1960))",
-      "message": "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :foo"
-    },
-    {
-      "name": "fail-pass",
-      "status": "fail",
-      "test_code": "(is (leap/leap-year? 2000))",
-      "message": "Expected (leap/leap-year? 2000) but got (not (leap/leap-year? 2000))"
-    },
-    {
-      "name": "pass-pass",
-      "status": "pass",
-      "test_code": "(is (not (leap/leap-year? 2100)))\n(is (not (leap/leap-year? 1800)))"
-    }
-  ]
+  "version" : 3,
+  "status" : "fail",
+  "tests" : [ {
+    "name" : "pass-fail-error",
+    "status" : "fail",
+    "test_code" : "(is (= true false) :2)",
+    "message" : "Expected (= true false) but got (not (= true false))"
+  }, {
+    "name" : "fail-error-pass",
+    "status" : "fail",
+    "test_code" : "(is (= true false) :1)",
+    "message" : "Expected (= true false) but got (not (= true false))"
+  }, {
+    "name" : "error-pass-fail",
+    "status" : "fail",
+    "test_code" : "(is (assert false) :1)",
+    "message" : "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: false"
+  }, {
+    "name" : "pass-fail-pass",
+    "status" : "fail",
+    "test_code" : "(is (= true false) :2)",
+    "message" : "Expected (= true false) but got (not (= true false))"
+  }, {
+    "name" : "pass-pass-pass",
+    "status" : "pass",
+    "test_code" : "(is (= true true) :1)\n(is (= true true) :2)\n(is (= true true) :3)"
+  }, {
+    "name" : "error-pass-error",
+    "status" : "fail",
+    "test_code" : "(is (assert false) :1)",
+    "message" : "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: false"
+  }, {
+    "name" : "pass-error-pass-error",
+    "status" : "fail",
+    "test_code" : "(is (leap/leap-year? 1960))",
+    "message" : "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :foo"
+  }, {
+    "name" : "fail-pass",
+    "status" : "fail",
+    "test_code" : "(is (leap/leap-year? 2000))",
+    "message" : "Expected (leap/leap-year? 2000) but got (not (leap/leap-year? 2000))"
+  }, {
+    "name" : "pass-pass",
+    "status" : "pass",
+    "test_code" : "(is (not (leap/leap-year? 2100)))\n(is (not (leap/leap-year? 1800)))"
+  } ]
 }
