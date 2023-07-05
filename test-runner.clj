@@ -150,6 +150,7 @@
                     (->> (concat @fails+errors @passes [(default-report test)])
                          (filter #(= test (:name %)))
                          first
-                         remove-nil-vals))}))
+                         remove-nil-vals))}
+          {:pretty true}))
 
 (System/exit 0)
