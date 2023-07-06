@@ -111,7 +111,7 @@
 (defn report [{:keys [type] :as m}]
   (let [{:keys [name task]} (meta (first t/*testing-vars*))]
     {:name name
-     :status (if (= :pass type) :pass :fail)
+     :status type
      :task_id task
      :test_code (get-test-code name type)
      :message (get-message m)}))
