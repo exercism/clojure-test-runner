@@ -32,7 +32,7 @@
     "message" : "An unexpected error occurred:\njava.lang.AssertionError: Assert failed: false"
   }, {
     "name" : "pass-error-pass-error",
-    "status" : "fail",
+    "status" : "error",
     "test_code" : "(is (leap/leap-year? 1960))",
     "message" : "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :foo"
   }, {

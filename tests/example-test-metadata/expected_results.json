@@ -1,43 +1,36 @@
 {
-  "version": 3,
-  "status": "fail",
-  "tests": [
-    {
-      "name": "list-empty-test",
-      "status": "pass",
-      "task_id": 1,
-      "test_code": "(is (= (quote ()) (tracks-on-tracks-on-tracks/new-list)))"
-    },
-    {
-      "name": "list-add-test",
-      "status": "pass",
-      "task_id": 2,
-      "test_code": "(is (= (quote (\"JavaScript\" \"Java\" \"Lisp\" \"Clojure\")) (-> (tracks-on-tracks-on-tracks/new-list) (tracks-on-tracks-on-tracks/add-language \"Clojure\") (tracks-on-tracks-on-tracks/add-language \"Lisp\") (tracks-on-tracks-on-tracks/add-language \"Java\") (tracks-on-tracks-on-tracks/add-language \"JavaScript\"))))"
-    },
-    {
-      "name": "first-test",
-      "status": "pass",
-      "task_id": 3,
-      "test_code": "(is (= \"Lisp\" (tracks-on-tracks-on-tracks/first-language (quote (\"Lisp\" \"Clojure\")))))"
-    },
-    {
-      "name": "list-remove-test",
-      "status": "pass",
-      "task_id": 4,
-      "test_code": "(is (= (quote (\"Clojure\")) (tracks-on-tracks-on-tracks/remove-language (quote (\"Lisp\" \"Clojure\")))))"
-    },
-    {
-      "name": "list-count-test",
-      "status": "pass",
-      "task_id": 5,
-      "test_code": "(is (= 3 (tracks-on-tracks-on-tracks/count-languages (quote (\"JavaScript\" \"Java\" \"Clojure\")))))"
-    },
-    {
-      "name": "learning-list-test",
-      "status": "fail",
-      "task_id": 6,
-      "test_code": "(is (= 3 (tracks-on-tracks-on-tracks/learning-list)))",
-      "message": "Expected (= 3 (tracks-on-tracks-on-tracks/learning-list)) but got (not (= 3 nil))"
-    }
-  ]
+  "version" : 3,
+  "status" : "fail",
+  "tests" : [ {
+    "name" : "list-empty-test",
+    "status" : "pass",
+    "task_id" : 1,
+    "test_code" : "(is (= (quote ()) (tracks-on-tracks-on-tracks/new-list)))"
+  }, {
+    "name" : "list-add-test",
+    "status" : "pass",
+    "task_id" : 2,
+    "test_code" : "(is (= (quote (\"JavaScript\" \"Java\" \"Lisp\" \"Clojure\")) (-> (tracks-on-tracks-on-tracks/new-list) (tracks-on-tracks-on-tracks/add-language \"Clojure\") (tracks-on-tracks-on-tracks/add-language \"Lisp\") (tracks-on-tracks-on-tracks/add-language \"Java\") (tracks-on-tracks-on-tracks/add-language \"JavaScript\"))))"
+  }, {
+    "name" : "first-test",
+    "status" : "pass",
+    "task_id" : 3,
+    "test_code" : "(is (= \"Lisp\" (tracks-on-tracks-on-tracks/first-language (quote (\"Lisp\" \"Clojure\")))))"
+  }, {
+    "name" : "list-remove-test",
+    "status" : "pass",
+    "task_id" : 4,
+    "test_code" : "(is (= (quote (\"Clojure\")) (tracks-on-tracks-on-tracks/remove-language (quote (\"Lisp\" \"Clojure\")))))"
+  }, {
+    "name" : "list-count-test",
+    "status" : "pass",
+    "task_id" : 5,
+    "test_code" : "(is (= 3 (tracks-on-tracks-on-tracks/count-languages (quote (\"JavaScript\" \"Java\" \"Clojure\")))))"
+  }, {
+    "name" : "learning-list-test",
+    "status" : "fail",
+    "task_id" : 6,
+    "test_code" : "(is (= 3 (tracks-on-tracks-on-tracks/learning-list)))",
+    "message" : "Expected (= 3 (tracks-on-tracks-on-tracks/learning-list)) but got (not (= 3 nil))"
+  } ]
 }

@@ -12,7 +12,7 @@
     "message" : "Expected (= \"3\" \"WRONG\") but got (not (= \"3\" \"WRONG\"))"
   }, {
     "name" : "day-test-error",
-    "status" : "fail",
+    "status" : "error",
     "test_code" : "(testing \"numeric pattern for day doesn't match\" (testing \"too few digits\" (is (nil? nil))) (testing \"too many digits\" (is (nil? nil))) (testing \"one letter\" (is (nil? (case :oh-no!)))) (testing \"two letters\" (is (nil? nil))))",
     "message" : "An unexpected error occurred:\njava.lang.IllegalArgumentException: No matching clause: :oh-no!"
   }, {
@@ -40,7 +40,7 @@
     "message" : "Expected (= 1000 (clojure.core/deref account)) but got (not (= 1000 10))"
   }, {
     "name" : "increment-decrement-and-get-balance-error",
-    "status" : "fail",
+    "status" : "error",
     "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref (deref account)))) (swap! account + -10) (is (= 0 (deref account)))))",
     "message" : "An unexpected error occurred:\njava.lang.ClassCastException: java.lang.Long cannot be cast to java.util.concurrent.Future"
   }, {
@@ -54,7 +54,7 @@
     "message" : "Expected (= 72 \"WRONG\") but got (not (= 72 \"WRONG\"))"
   }, {
     "name" : "largest-series-tests-error",
-    "status" : "fail",
+    "status" : "error",
     "test_code" : "(testing \"finds the largest product if span equals length\" (is (= 18 (+ :foo))))",
     "message" : "An unexpected error occurred:\njava.lang.ClassCastException: clojure.lang.Keyword cannot be cast to java.lang.Number"
   }, {
@@ -68,7 +68,7 @@
     "message" : "Expected (= 2 (second v)) but got (not (= 2 1))"
   }, {
     "name" : "is-inside-let-error",
-    "status" : "fail",
+    "status" : "error",
     "test_code" : "(let [v 4] (is (= 4 (count v))) (is (sequential? v)) (is (= 2 (second v))))",
     "message" : "An unexpected error occurred:\njava.lang.UnsupportedOperationException: count not supported on this type: Long"
   } ]
