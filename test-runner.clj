@@ -108,10 +108,10 @@
       ;; for fails just the one that failed/default to the whole test if index is out of bounds
       (get (test-assertions-map test-name) (dec a-count) (test-code-map test-name)))))
 
-(defn report [{:keys [type] :as m}]
+(defn report [{:keys [type actual] :as m}]
   (let [{:keys [name task]} (meta (first t/*testing-vars*))]
     {:name name
-     :status type
+     :status (if (str/includes? (str actual) "java.lang.AssertionError") :fail type)
      :task_id task
      :test_code (get-test-code name type)
      :message (get-message m)}))
