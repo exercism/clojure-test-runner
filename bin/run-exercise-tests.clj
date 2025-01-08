@@ -48,7 +48,7 @@
     (path-str (:clojure-repo-path opts) "exercises" subdir slug)))
 
 (defn example-subpath [{:keys [practices]}]
-  (apply path-str ".meta" (if practices ["src" "example.clj"] ["exemplar.clj"])))
+  (apply path-str ".meta" (if practices ["example.clj"] ["exemplar.clj"])))
 
 (defn src-subpath [{:keys [slug]}]
   (path-str "src" (str (csk/->snake_case slug) ".clj")))
