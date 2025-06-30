@@ -37,7 +37,7 @@
     "name" : "increment-decrement-and-get-balance-fail",
     "status" : "fail",
     "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (clojure.core/deref account))) (swap! account + 10) (is (= 1000 (clojure.core/deref account))) (swap! account + -10) (is (= 0 (clojure.core/deref account)))))",
-    "message" : "Expected (= 1000 (clojure.core/clojure.core/deref account)) but got (not (= 1000 10))"
+    "message" : "Expected (= 1000 (clojure.core/deref account)) but got (not (= 1000 10))"
   }, {
     "name" : "increment-decrement-and-get-balance-error",
     "status" : "error",
