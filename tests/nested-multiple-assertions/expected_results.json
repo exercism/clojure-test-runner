@@ -32,16 +32,16 @@
   }, {
     "name" : "increment-decrement-and-get-balance-pass",
     "status" : "pass",
-    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))"
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (clojure.core/deref account))) (swap! account + 10) (is (= 10 (clojure.core/deref account))) (swap! account + -10) (is (= 0 (clojure.core/deref account)))))"
   }, {
     "name" : "increment-decrement-and-get-balance-fail",
     "status" : "fail",
-    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 1000 (deref account))) (swap! account + -10) (is (= 0 (deref account)))))",
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (clojure.core/deref account))) (swap! account + 10) (is (= 1000 (clojure.core/deref account))) (swap! account + -10) (is (= 0 (clojure.core/deref account)))))",
     "message" : "Expected (= 1000 (clojure.core/deref account)) but got (not (= 1000 10))"
   }, {
     "name" : "increment-decrement-and-get-balance-error",
     "status" : "error",
-    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (deref account))) (swap! account + 10) (is (= 10 (deref (deref account)))) (swap! account + -10) (is (= 0 (deref account)))))",
+    "test_code" : "(testing \"Taking money out of the account works\" (let [account (atom 0)] (is (= 0 (clojure.core/deref account))) (swap! account + 10) (is (= 10 (clojure.core/deref (clojure.core/deref account)))) (swap! account + -10) (is (= 0 (clojure.core/deref account)))))",
     "message" : "An unexpected error occurred:\njava.lang.ClassCastException: java.lang.Long cannot be cast to java.util.concurrent.Future"
   }, {
     "name" : "largest-series-tests-pass",
